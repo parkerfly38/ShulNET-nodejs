@@ -8,5 +8,7 @@ db.mongoose = mongoose;
 db.url = dbConfig.url;
 db.members = require("./member.model")(mongoose);
 db.memberFamily = require("./member_family.model")(mongoose);
+db.invoice = require("./invoice.model")(mongoose);
+db.yz = require("./yahrzeit.model");
 
 module.exports = db;

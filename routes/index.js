@@ -4,6 +4,7 @@
 module.exports = app => {
     var router = require("express").Router();
     var memberRouter = require("./members");
+    var invoiceRouter = require("./invoice");
 };
 
 //declare our router functions here

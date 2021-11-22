@@ -1,7 +1,7 @@
 const { Schema } = require("mongoose");
 
 module.exports = mongoose => {
-    var schema = new new Schema({
+    var schema = new Schema({
         member_id: {type: String, required: true },
         first_name: { type: String, required: true },
         last_name: { type: String, required: true },
