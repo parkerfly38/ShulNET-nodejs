@@ -1,4 +1,7 @@
 require("dotenv").config();
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yml');
 const express = require("express");
 const cors = require("cors");
 const memberRoutes = require("./routes/members");
@@ -29,6 +32,8 @@ db.mongoose.connect(db.url, {useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use("/members", memberRoutes);
 app.use("/invoice", invoiceRoutes);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const PORT = process.env.NODE_DOCKER_PORT || 8080;
 app.listen(PORT, () => {
