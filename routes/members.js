@@ -1,6 +1,7 @@
 /**
  * This module is the CRUD for members
  */
+const { authJwt } = require("../middleware");
 
 var express = require("express");
 const MemberController = require("../controllers/member.controller");
@@ -9,7 +10,7 @@ const MemberFamilyController = require("../controllers/member_family.controller"
 var router = express.Router();
 
 //members
-router.get("/", MemberController.findAll);
+router.get("/", [authJwt.verifyToken], MemberController.findAll);
 router.get("/:id", MemberController.findOne);
 router.post("/", MemberController.create);
 router.put("/:id", MemberController.update);

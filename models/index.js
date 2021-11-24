@@ -12,5 +12,6 @@ db.invoice = require("./invoice.model")(mongoose);
 db.yz = require("./yahrzeit.model")(mongoose);
 db.calendar = require("./calendar.model")(mongoose);
 db.event = require("./event.model")(mongoose);
+db.user = require("./user.model")(mongoose);
 
 module.exports = db;
