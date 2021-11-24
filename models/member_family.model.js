@@ -26,4 +26,4 @@ module.exports = mongoose => {
 
     const MemberFamily = mongoose.model("memberFamily", schema);
     return MemberFamily;
-}
+};

@@ -1,11 +1,11 @@
 require("dotenv").config();
 const swaggerUi = require('swagger-ui-express');
-const YAML = require('yamljs');
-const swaggerDocument = YAML.load('./swagger.yml');
+const swaggerFile = require('./swagger_output.json');
 const express = require("express");
 const cors = require("cors");
-const memberRoutes = require("./routes/members");
-const invoiceRoutes = require("./routes/invoice");
+//const memberRoutes = require("./routes/members");
+//const invoiceRoutes = require("./routes/invoice");
+const router = require("./routes");
 
 const app = express();
 
@@ -30,10 +30,9 @@ db.mongoose.connect(db.url, {useNewUrlParser: true, useUnifiedTopology: true })
         process.exit();
     });
 
-app.use("/members", memberRoutes);
-app.use("/invoice", invoiceRoutes);
+app.use("/", router);
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 const PORT = process.env.NODE_DOCKER_PORT || 8080;
 app.listen(PORT, () => {

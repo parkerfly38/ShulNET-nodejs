@@ -1,10 +1,13 @@
 {
   "name": "shul-net-nodejs",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "description": "ShulNET-nodejs",
   "main": "server.js",
   "author": {
-    "name": ""
+    "name": "Brian Kresge"
+  },
+  "scripts": {
+    "swagger-autogen": "node swagger.js"
   },
   "dependencies": {
     "@hebcal/core": "^3.29.1",
@@ -16,8 +19,8 @@
     "mongodb": "^4.1.4",
     "mongoose": "^6.0.13",
     "morgan": "^1.10.0",
+    "swagger-autogen": "^2.13.0",
     "swagger-jsdoc": "^6.1.0",
-    "swagger-ui-express": "^4.1.6",
-    "yamljs": "^0.3.0"
+    "swagger-ui-express": "^4.1.6"
   }
 }

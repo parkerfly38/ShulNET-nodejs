@@ -1,0 +1,1461 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "0.1.0",
+    "title": "ShulNET NodeJS API",
+    "description": "API underpinning ShulNET or custom integrations."
+  },
+  "host": "localhost:6868",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "User",
+      "description": "Endpoints"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/members/": {
+      "get": {
+        "tags": [
+          "Members"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Member"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Members"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Member definition.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Member"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/Member"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/members/{id}": {
+      "get": {
+        "tags": [
+          "Members"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Member"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Members"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Members"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/members/{member_id}/family": {
+      "get": {
+        "tags": [
+          "Family Members"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "member_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FamilyMember"
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/members/family/{id}": {
+      "get": {
+        "tags": [
+          "Family Members"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/FamilyMember"
+            },
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Family Members"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Family Members"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/members/family": {
+      "post": {
+        "tags": [
+          "Family Members"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Family member definition.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FamilyMember"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/FamilyMember"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/members/{member_id}/invoices": {
+      "get": {
+        "tags": [
+          "Members",
+          "Invoices"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "member_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Invoice"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/invoices/": {
+      "post": {
+        "tags": [
+          "Invoices"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Invoices"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/invoices/{id}": {
+      "get": {
+        "tags": [
+          "Invoices"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Invoices"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Invoices"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/calendar/": {
+      "post": {
+        "tags": [
+          "Calendar"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Create a calendar.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Calendar"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/Calendar"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Calendar"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Calendar"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/calendar/{id}": {
+      "get": {
+        "tags": [
+          "Calendar"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definition/Calendar"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Calendar"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Member definition.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Member"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Calendar"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/yahrzeit/": {
+      "post": {
+        "tags": [
+          "Yahrzeit"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Yahrzeit definition",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Yahrzeit"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/Yahrzeit"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Yahrzeit"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Yahrzeit"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/yahrzeit/{id}": {
+      "get": {
+        "tags": [
+          "Yahrzeit"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Yahrzeit"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Yahrzeit"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Yahrzeit definition",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Yahrzeit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Yahrzeit"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/event/": {
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Event definition",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Event"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/Member"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Event "
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/event/calendar/{calendar_id}": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "calendar_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Event"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/event/{id}": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Event"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Events"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Events"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Calendar": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Example Calendar"
+        },
+        "members_only": {
+          "type": "boolean",
+          "example": false
+        },
+        "public": {
+          "type": "boolean",
+          "example": true
+        },
+        "created": {
+          "type": "string",
+          "example": "2021-01-01"
+        }
+      }
+    },
+    "Event": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": ""
+        },
+        "tagline": {
+          "type": "string",
+          "example": ""
+        },
+        "calendar_id": {
+          "type": "string",
+          "example": ""
+        },
+        "starts": {
+          "type": "string",
+          "example": "2021-01-01"
+        },
+        "ends": {
+          "type": "string",
+          "example": "2021-01-02"
+        },
+        "start_registrations": {
+          "type": "string",
+          "example": "2020-12-01"
+        },
+        "early_bird_end": {
+          "type": "string",
+          "example": "2020-12-04"
+        },
+        "close_registration": {
+          "type": "string",
+          "example": "2020-12-15"
+        },
+        "created": {
+          "type": "string",
+          "example": "2020-11-01"
+        },
+        "max_rsvps": {
+          "type": "number",
+          "example": 0
+        },
+        "members_only_rsvp": {
+          "type": "boolean",
+          "example": false
+        },
+        "members_only_view": {
+          "type": "boolean",
+          "example": false
+        },
+        "allow_guests": {
+          "type": "boolean",
+          "example": false
+        },
+        "max_guests": {
+          "type": "number",
+          "example": 0
+        },
+        "description": {
+          "type": "string",
+          "example": ""
+        },
+        "post_rsvp_message": {
+          "type": "string",
+          "example": ""
+        },
+        "online": {
+          "type": "boolean",
+          "example": false
+        },
+        "url": {
+          "type": "string",
+          "example": ""
+        },
+        "location_name": {
+          "type": "string",
+          "example": ""
+        },
+        "address_line_1": {
+          "type": "string",
+          "example": ""
+        },
+        "address_line_2": {
+          "type": "string",
+          "example": ""
+        },
+        "city": {
+          "type": "string",
+          "example": ""
+        },
+        "state": {
+          "type": "string",
+          "example": ""
+        },
+        "zip": {
+          "type": "string",
+          "example": ""
+        },
+        "country": {
+          "type": "string",
+          "example": ""
+        },
+        "phone": {
+          "type": "string",
+          "example": ""
+        },
+        "all_day": {
+          "type": "boolean",
+          "example": false
+        },
+        "public": {
+          "type": "boolean",
+          "example": true
+        },
+        "status": {
+          "type": "number",
+          "example": 0
+        }
+      }
+    },
+    "Member": {
+      "type": "object",
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "example": "Brian"
+        },
+        "last_name": {
+          "type": "string",
+          "example": "Kresge"
+        },
+        "middle_name": {
+          "type": "string",
+          "example": "Tiberius"
+        },
+        "address_line_1": {
+          "type": "string",
+          "example": "104 Baker Road"
+        },
+        "address_line_2": {
+          "type": "string",
+          "example": ""
+        },
+        "city": {
+          "type": "string",
+          "example": "Winterport"
+        },
+        "state": {
+          "type": "string",
+          "example": "ME"
+        },
+        "zip": {
+          "type": "string",
+          "example": "04496"
+        },
+        "country": {
+          "type": "string",
+          "example": "US"
+        },
+        "phone": {
+          "type": "string",
+          "example": "555-555-5555"
+        },
+        "fax": {
+          "type": "string",
+          "example": "555-555-5556"
+        },
+        "title": {
+          "type": "string",
+          "example": "Lord"
+        },
+        "cell": {
+          "type": "string",
+          "example": "555-555-5557"
+        },
+        "email": {
+          "type": "string",
+          "example": "brian.kresge@gmail.com"
+        },
+        "gender": {
+          "type": "string",
+          "example": "M"
+        },
+        "hebrew_name": {
+          "type": "string",
+          "example": "ּברך בנ אריח ידל"
+        },
+        "father_hebrew_name": {
+          "type": "string",
+          "example": ""
+        },
+        "mother_hebrew_name": {
+          "type": "string",
+          "example": "Shoshanna Rut"
+        },
+        "bar_bat_mitzvah_portion": {
+          "type": "string",
+          "example": "Balak"
+        },
+        "aliya": {
+          "type": "string",
+          "example": "true"
+        },
+        "dvar_torah": {
+          "type": "string",
+          "example": "true"
+        },
+        "bnai_mitzvah_date": {
+          "type": "string",
+          "example": "5 Tammuz"
+        },
+        "haftarah": {
+          "type": "string",
+          "example": ""
+        },
+        "wedding_anniversary": {
+          "type": "string",
+          "example": "2006-06-18"
+        },
+        "quickbooks_customer_id": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "FamilyMember": {
+      "type": "object",
+      "properties": {
+        "member_id": {
+          "type": "string",
+          "example": ""
+        },
+        "first_name": {
+          "type": "string",
+          "example": "Amelia"
+        },
+        "last_name": {
+          "type": "string",
+          "example": "Kresge"
+        },
+        "address_line_1": {
+          "type": "string",
+          "example": "104 Baker Road"
+        },
+        "address_line_2": {
+          "type": "string",
+          "example": ""
+        },
+        "city": {
+          "type": "string",
+          "example": "Winterport"
+        },
+        "state": {
+          "type": "string",
+          "example": "ME"
+        },
+        "zip": {
+          "type": "string",
+          "example": "04496"
+        },
+        "country": {
+          "type": "string",
+          "example": "US"
+        },
+        "phone": {
+          "type": "string",
+          "example": "555-555-5555"
+        },
+        "email": {
+          "type": "string",
+          "example": "email@email.com"
+        },
+        "dob": {
+          "type": "string",
+          "example": "2001-01-01"
+        },
+        "hebrew_name": {
+          "type": "string",
+          "example": "Aviva Leah bat Baruch v/Leah Pesha"
+        },
+        "bnai_mitzvah_date": {
+          "type": "string",
+          "example": "2011-01-01"
+        }
+      }
+    },
+    "Invoice": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "example": "2021-01-01"
+        },
+        "last_reminder": {
+          "type": "string",
+          "example": "2021-01-01"
+        },
+        "date_due": {
+          "type": "string",
+          "example": "2021-02-01"
+        },
+        "total_reminders": {
+          "type": "number",
+          "example": 0
+        },
+        "member_id": {
+          "type": "string",
+          "example": ""
+        },
+        "status": {
+          "type": "number",
+          "example": 0
+        },
+        "tax_rate": {
+          "type": "number",
+          "example": 0
+        },
+        "shipping_rule": {
+          "type": "string",
+          "example": ""
+        },
+        "shipping_name": {
+          "type": "string",
+          "example": ""
+        },
+        "ip": {
+          "type": "string",
+          "example": ""
+        },
+        "hourly": {
+          "type": "number",
+          "example": 0
+        },
+        "rollingInvoice": {
+          "type": "boolean",
+          "example": false
+        },
+        "check_only": {
+          "type": "boolean",
+          "example": false
+        },
+        "quote": {
+          "type": "boolean",
+          "example": false
+        },
+        "header": {
+          "type": "object",
+          "properties": {
+            "company_name": {
+              "type": "string",
+              "example": "ABC Company"
+            },
+            "contact_name": {
+              "type": "string",
+              "example": "Brian Kresge"
+            },
+            "address_line_1": {
+              "type": "string",
+              "example": "104 Baker Road"
+            },
+            "address_line_2": {
+              "type": "string",
+              "example": ""
+            },
+            "city": {
+              "type": "string",
+              "example": "Winterport"
+            },
+            "state": {
+              "type": "string",
+              "example": "ME"
+            },
+            "zip": {
+              "type": "string",
+              "example": "04496"
+            },
+            "country": {
+              "type": "string",
+              "example": "US"
+            },
+            "phone": {
+              "type": "string",
+              "example": "555-555-5555"
+            },
+            "fax": {
+              "type": "string",
+              "example": "555-555-5556"
+            },
+            "email": {
+              "type": "string",
+              "example": "brian.kresge@gmai.com"
+            },
+            "webiste": {
+              "type": "string",
+              "example": "www.shulnet.com"
+            },
+            "memo": {
+              "type": "string",
+              "example": ""
+            }
+          }
+        },
+        "payments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "string",
+                "example": "2021-01-01"
+              },
+              "paid": {
+                "type": "number",
+                "example": 15
+              }
+            }
+          }
+        },
+        "components": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "example": "product"
+            },
+            "minutes": {
+              "type": "number",
+              "example": 0
+            },
+            "hourly": {
+              "type": "number",
+              "example": 0
+            },
+            "qty": {
+              "type": "number",
+              "example": 1
+            },
+            "unit_price": {
+              "type": "number",
+              "example": 15
+            },
+            "status": {
+              "type": "number",
+              "example": 0
+            },
+            "date": {
+              "type": "string",
+              "example": "2021-01-01"
+            },
+            "option1": {
+              "type": "string",
+              "example": ""
+            },
+            "option2": {
+              "type": "string",
+              "example": ""
+            },
+            "option3": {
+              "type": "string",
+              "example": ""
+            },
+            "option4": {
+              "type": "string",
+              "example": ""
+            },
+            "option5": {
+              "type": "string",
+              "example": ""
+            },
+            "name": {
+              "type": "string",
+              "example": "Name of line"
+            },
+            "description": {
+              "type": "string",
+              "example": "Valuable service"
+            },
+            "tax": {
+              "type": "number",
+              "example": 0
+            }
+          }
+        },
+        "totals": {
+          "type": "object",
+          "properties": {
+            "paid": {
+              "type": "number",
+              "example": 0
+            },
+            "due": {
+              "type": "number",
+              "example": 1500
+            },
+            "subtotal": {
+              "type": "number",
+              "example": 1500
+            },
+            "shipping": {
+              "type": "number",
+              "example": 0
+            },
+            "tax": {
+              "type": "number",
+              "example": 0
+            },
+            "tax_rate": {
+              "type": "number",
+              "example": 0.2
+            },
+            "credits": {
+              "type": "number",
+              "example": 0
+            }
+          }
+        }
+      }
+    },
+    "Yahrzeit": {
+      "type": "object",
+      "properties": {
+        "english_name": {
+          "type": "string",
+          "example": "Bob Jones"
+        },
+        "hebrew_name": {
+          "type": "string",
+          "example": "יהודה"
+        },
+        "date_of_death": {
+          "type": "string",
+          "example": "2014-01-01"
+        },
+        "hebrew_day_of_death": {
+          "type": "string",
+          "example": "14"
+        },
+        "hebrew_month_of_death": {
+          "type": "string",
+          "example": "TAMUZ"
+        },
+        "member_id": {
+          "type": "array",
+          "example": [
+            "",
+            "",
+            ""
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

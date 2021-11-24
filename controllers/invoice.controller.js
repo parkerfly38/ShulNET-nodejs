@@ -5,7 +5,7 @@ const Invoice = db.invoice;
 
 exports.create = (req, res) =>
 {
-    console.log(req.body);
+    // #swagger.tags = ["Invoices"]
     const invoice = new Invoice(req.body);
 
     invoice
@@ -21,6 +21,7 @@ exports.create = (req, res) =>
 };
 
 exports.findAll = (req, res) => {
+    // #swagger.tags = ["Invoices"]
     Invoice.find()
         .then(data => {
             res.send(data);
@@ -31,6 +32,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.fineOne = (req, res) => {
+    // #swagger.tags = ["Invoices"]
     const id = req.params.id;
     
     Invoice.findById(id)
@@ -48,6 +50,7 @@ exports.fineOne = (req, res) => {
 };
 
 exports.update = (req, res) => {
+    // #swagger.tags = ["Invoices"]
     if (!req.body)
     {
         return res.status(400).send({ message: "Data may not be empty. "});
@@ -69,6 +72,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
+    // #swagger.tags = ["Invoices"]
     const id = req.params.id;
     Invoice.findByIdAndRemove(id, { useFindAndModify: false })
         .then(data => {

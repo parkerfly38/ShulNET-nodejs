@@ -6,13 +6,24 @@ const Member = db.members;
 const Invoice = db.invoice;
 
 exports.create = (req, res) => {
+    /*  #swagger.tags = ["Members"]
+        #swagger.parameters['obj'] = {
+           in: 'body',
+           description: 'Member definition.',
+           required: true,
+           schema: { $ref: "#/definitions/Member" }
+        }
+        #swagger.responses[201] = {
+            schema: { "$ref": "#/definitions/Member" }
+        }
+        */
     const member = new Member(req.body);
 
     member
         .save(member)
         .then(data => {
-            console.log(data);
-            res.send(data);
+            
+            res.status(201).send(data);
         })
         .catch(err => {
             res.status(500).send( { message: err.message || "An error occured while creating a member." });
@@ -20,10 +31,14 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
+    // #swagger.tags = ["Members"]
     Member.find()
         .then(data => {
-            console.log(data);
-            res.send(data);
+            /* #swagger.responses[200] = {
+                    schema: [{  "$ref": "#/definitions/Member" }]
+                }
+                */
+            res.status(200).send(data);
         })
         .catch(err => {
             res.status(500).send({ message: err.message || "An error occured retrieving members." });
@@ -31,6 +46,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
+    // #swagger.tags = ["Members"]
     const id = req.params.id;
 
     Member.findById(id)
@@ -39,7 +55,11 @@ exports.findOne = (req, res) => {
             {
                 res.status(404).send({message: "Not found Member with id " + id });
             } else {
-                res.send(data);
+                /* #swagger.responses[200] = {
+                    schema: { "$ref": "#/definitions/Member" }
+                }
+                */
+                res.status(200).send(data);
             }
         })
         .catch(err => {
@@ -48,6 +68,7 @@ exports.findOne = (req, res) => {
 };
 
 exports.update = (req, res) => {
+    // #swagger.tags = ["Members"]
     if (!req.body)
     {
         return res.status(400).send({ message: "Data may not be empty."});
@@ -61,7 +82,8 @@ exports.update = (req, res) => {
                     message: `Cannot update Member with id = ${id}.  Member not found.`
                 })
             } else {
-                res.send({message: "Member was updated successfully."});
+                //res.status(201).send({message: "Member was updated successfully."});
+                res.status(204).send();
             }
         })
         .catch(err => {
@@ -70,6 +92,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
+    // #swagger.tags = ["Members"]
     const id = req.params.id;
     Member.findByIdAndRemove(id, { useFindAndModify: false })
         .then(data => {
@@ -77,17 +100,18 @@ exports.delete = (req, res) => {
             {
                 res.status(404).send({ message: `Cannot delete Member with id = ${id}. Member not found.`});
             } else {
-                res.send({ message: `${data.deletedCount} Members were deleted successfully.`});
+                res.status(200).send({ message: `${data.deletedCount} Members were deleted successfully.`});
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "An error occurred while removing a "
+                message: err.message || "An error occurred while removing a member."
             });
         });
 };
 
 exports.getMemberInvoices = (req, res) => {
+    // #swagger.tags = ["Members","Invoices"]
     const id = req.params.member_id;
     Invoice.find({ member_id: id })
         .then(data => {
@@ -95,7 +119,11 @@ exports.getMemberInvoices = (req, res) => {
             {
                 res.status(404).send({ message: `No invoices found for member id ${id}`});
             } else {
-                res.send(data);
+                /* #swagger.responses[200] = {
+                    schema: { "$ref": "#/definitions/Invoice" }
+                }
+                */
+                res.status(200).send(data);
             }
         })
         .catch(err => {

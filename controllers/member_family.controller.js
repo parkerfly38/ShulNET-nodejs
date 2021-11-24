@@ -4,13 +4,24 @@ const db = require("../models");
 const MemberFamily = db.memberFamily;
 
 exports.create = (req, res) => {
+    // #swagger.tags = ["Family Members"]
+    /*
+        #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Family member definition.',
+            required: true,
+            schema: { "$ref": "#/definitions/FamilyMember" }
+        }
+        #swagger.responses[201] = {
+            schema: { "$ref": "#/definitions/FamilyMember" }
+        }
+    */
     const memberfamily = new MemberFamily(req.body);
 
     memberfamily
         .save(memberfamily)
         .then(data => {
-            console.log(data);
-            res.send(data);
+            res.status(201).send(data);
         })
         .catch(err => {
             res.status(500).send( {message: err.message || "An error occured saving a family member." });
@@ -18,6 +29,12 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
+    // #swagger.tags = ["Family Members"]
+    /*
+        #swagger.responses[200] = {
+            schema: [{ "$ref": "#/definitions/FamilyMember" }]
+        }
+    */
     if (!req.params.member_id)
     {
         MemberFamily.find()
@@ -44,6 +61,12 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
+    // #swagger.tags = ["Family Members"]
+    /*
+        #swagger.responses[200] = {
+            schema: { "$ref": "#/definitions/FamilyMember" }
+        }
+    */
     const id = req.params.id;
 
     MemberFamily.findById(id)
@@ -61,6 +84,7 @@ exports.findOne = (req, res) => {
 };
 
 exports.update = (req, res) => {
+    // #swagger.tags = ["Family Members"]
     if (!req.body)
     {
         return res.status(400).send({ message: "Data may not be empty. "});
@@ -73,7 +97,7 @@ exports.update = (req, res) => {
                     message: `Cannot update family member with id = ${id}.  Family member not found.`
                 });
             } else {
-                res.send({message: "Family member was updated successfully."});
+                res.status(200).send({message: "Family member was updated successfully."});
             }                               
         })
         .catch(err => {
@@ -82,6 +106,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
+    // #swagger.tags = ["Family Members"]
     const id = req.params.id;
     MemberFamily.findByIdAndRemove(id, { useFindAndModify: false })
         .then(data => {
@@ -89,7 +114,7 @@ exports.delete = (req, res) => {
             {
                 res.status(404).send({ message: `Cannot delete family member with id = ${id}. Family member not found.`});
             } else {
-                res.send({ message: `${data.deletedCount } Family members were deleted.`});
+                res.status(200).send({ message: `${data.deletedCount } Family members were deleted.`});
             }
         })
         .catch(err => {

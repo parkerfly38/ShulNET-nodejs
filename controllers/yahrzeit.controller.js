@@ -1,15 +1,25 @@
-import {HebrewCalendar, HDate, Location, Event} from '@hebcal/core';
+//mport {HebrewCalendar, HDate, Location, Event} from '@hebcal/core';
 const e = require("express");
 const { yahrzeit } = require("../models");
 const db = require("../models");
 const Yahrzeit = db.yz;
 
 exports.create = (req, res) => {
+    /* #swagger.tags = ["Yahrzeit"]
+     #swagger.parameters['obj'] = {
+      in: 'body',
+      description: 'Yahrzeit definition',
+      required: true,
+      schema: { $ref: "#/definitions/Yahrzeit" }
+     }
+     #swagger.responses[201] = {
+      schema: { $ref: "#/definitions/Yahrzeit" }    
+     } */
     const yahrzeit = new Yahrzeit(req.body);
     yahrzeit
         .save(yahrzeit)
         .then(data => {
-            res.send(data);
+            res.status(201).send(data);
         })
         .catch(err => {
             res.status(500).send({ message: err.message || "An error occurred saving this yahrzeit."});
@@ -17,17 +27,26 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
+    /* #swagger.tags = ["Yahrzeit"]
+     #swagger.responses[200] = {
+      schema: [{ $ref: "#/definitions/Yahrzeit" }]
+    } */
     Yahrzeit.find( req.body )
         .then(data => {
-            res.send(data)
+            res.status(200).send(data);
         })
         .catch(err => {
             res.status(500).send({ message: err.message || "An error occurred retrieving yahrzeits." });
-        })
+        });
 };
 
 exports.findOne = (req, res) =>
 {
+    /* #swagger.tags = ["Yahrzeit"]
+     #swagger.responses[200] = {
+      schema: { $ref: "#/definitions/Yahrzeit" }
+     }
+     */
     const id = req.params.id;
 
     Yahrzeit.findById(id)
@@ -36,15 +55,22 @@ exports.findOne = (req, res) =>
             {
                 res.status(404).send({message: "Yahrzeit not found with id " .id});
             } else {
-                res.send(data);
+                res.status(200).send(data);
             }
         })
         .catch(err => {
             res.status(500).send({ message: err.message || "An error occurred looking up yahrzeit id " + id });
-        })
+        });
 };
 
 exports.update = (req, res) => {
+    /* #swagger.tags = ["Yahrzeit"]
+     #swagger.parameters['obj'] = {
+      in: 'body',
+      description: 'Yahrzeit definition',
+      required: true,
+      schema: { $ref: "#/definitions/Yahrzeit" }
+     } */
     if (!req.body)
     {
         return res.status(400).send({ message: "Data may not be empty."});
@@ -58,7 +84,7 @@ exports.update = (req, res) => {
                     message: `Cannot update Yahrzeit with id = ${id}.  Member not found.`
                 })
             } else {
-                res.send({message: "Yahrzeit was updated successfully."});
+                res.status(200).send({message: "Yahrzeit was updated successfully."});
             }
         })
         .catch(err => {
@@ -67,6 +93,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
+    // #swagger.tags = ["Yahrzeit"]
     const id = req.params.id;
     Member.findByIdAndRemove(id, { useFindAndModify: false })
         .then(data => {
@@ -74,7 +101,7 @@ exports.delete = (req, res) => {
             {
                 res.status(404).send({ message: `Cannot delete Yahrzeit with id = ${id}. Member not found.`});
             } else {
-                res.send({ message: `${data.deletedCount} Yahrzeits were deleted successfully.`});
+                res.status(200).send({ message: `${data.deletedCount} Yahrzeits were deleted successfully.`});
             }
         })
         .catch(err => {
