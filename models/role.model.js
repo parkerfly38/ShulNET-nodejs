@@ -2,7 +2,7 @@ const { Schema } = require("mongoose");
 
 module.exports = mongoose => {
     var schema = new Schema({
-        name: { type: String, required: true }
+        name: { type: String, required: true, unique: true }
     });
 
     schema.method("toJSON", function() {

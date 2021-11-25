@@ -68,7 +68,14 @@ exports.findOne = (req, res) => {
 };
 
 exports.update = (req, res) => {
-    // #swagger.tags = ["Members"]
+    /*  #swagger.tags = ["Members"]
+        #swagger.parameters['obj'] = {
+           in: 'body',
+           description: 'Member definition.',
+           required: true,
+           schema: { $ref: "#/definitions/Member" }
+        }
+    */
     if (!req.body)
     {
         return res.status(400).send({ message: "Data may not be empty."});
