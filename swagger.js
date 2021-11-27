@@ -34,6 +34,24 @@ const doc = {
         }
     },*/
     definitions: {
+        Account: {
+            email: "brian.kresge@gmail.com",
+            passwordHash: "",
+            title: "None",
+            firstName: "Brian",
+            lastName: "Kresge",
+            acceptTerms: true,
+            role: "Admin",
+            verificationToken: "",
+            verified: "2021-01-01",
+            resetToken: {
+                token: "",
+                expires: "2021-01-01"
+            },
+            passwordReset: "2022-01-01",
+            created: "2021-01-01",
+            updated: "2021-01-01"
+        },
         Calendar: {
             name: "Example Calendar",
             members_only: false,

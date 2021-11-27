@@ -118,6 +118,15 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Member definition.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Member"
+            }
           }
         ],
         "responses": {
@@ -878,9 +887,343 @@
           }
         }
       }
+    },
+    "/account/authenticate": {
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "schema": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Account"
+            }
+          }
+        }
+      }
+    },
+    "/account/refresh-token": {
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Account"
+            }
+          }
+        }
+      }
+    },
+    "/account/revoke-token": {
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/account/register": {
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/account/verify-email": {
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/account/forgot-password": {
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/account/validate-reset-token": {
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/account/reset-password": {
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/account/": {
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Account"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Account"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/account/{id}": {
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Account"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Account"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
     }
   },
   "definitions": {
+    "Account": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "brian.kresge@gmail.com"
+        },
+        "passwordHash": {
+          "type": "string",
+          "example": ""
+        },
+        "title": {
+          "type": "string",
+          "example": "None"
+        },
+        "firstName": {
+          "type": "string",
+          "example": "Brian"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Kresge"
+        },
+        "acceptTerms": {
+          "type": "boolean",
+          "example": true
+        },
+        "role": {
+          "type": "string",
+          "example": "Admin"
+        },
+        "verificationToken": {
+          "type": "string",
+          "example": ""
+        },
+        "verified": {
+          "type": "string",
+          "example": "2021-01-01"
+        },
+        "resetToken": {
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string",
+              "example": ""
+            },
+            "expires": {
+              "type": "string",
+              "example": "2021-01-01"
+            }
+          }
+        },
+        "passwordReset": {
+          "type": "string",
+          "example": "2022-01-01"
+        },
+        "created": {
+          "type": "string",
+          "example": "2021-01-01"
+        },
+        "updated": {
+          "type": "string",
+          "example": "2021-01-01"
+        }
+      }
+    },
     "Calendar": {
       "type": "object",
       "properties": {
