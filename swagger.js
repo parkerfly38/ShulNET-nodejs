@@ -34,6 +34,17 @@ const doc = {
         }
     },*/
     definitions: {
+        Registration: {
+            email: "brian.kresge@gmail.com",
+            title: "None",
+            firstName: "Brian",
+            lastName: "Kresge",
+            password: "",
+            confirmPassword: "",
+            acceptTerms: true,
+            role: "Admin",
+            created: "2021-11-27"
+        },
         Account: {
             email: "brian.kresge@gmail.com",
             passwordHash: "",

@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const sendEmail = require('../handlers/send-email');
 const db = require('../models');
 const Role = require('../handlers/role');
+const { send } = require('process');
 
 module.exports = {
     authenticate,
@@ -78,9 +79,9 @@ async function revokeToken({ token, ipAddress }) {
 
 async function register(params, origin) {
     // validate
-    if (await db.Account.findOne({ email: params.email })) {
+    if (await db.account.findOne({ email: params.email })) {
         // send already registered error in email to prevent account enumeration
-        return await sendAlreadyRegisteredEmail(params.email, origin);
+        //return await sendAlreadyRegisteredEmail(params.email, origin);
     }
 
     // create account object
@@ -89,6 +90,7 @@ async function register(params, origin) {
     // first registered account is an admin
     const isFirstAccount = (await db.account.countDocuments({})) === 0;
     account.role = isFirstAccount ? Role.Admin : Role.User;
+    account.verified = isFirstAccount ? Date.now() : Date.now();
     account.verificationToken = randomTokenString();
 
     // hash password
@@ -98,7 +100,7 @@ async function register(params, origin) {
     await account.save();
 
     // send email
-    await sendVerificationEmail(account, origin);
+    //await sendVerificationEmail(account, origin);
 }
 
 async function verifyEmail({ token }) {

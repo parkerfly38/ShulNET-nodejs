@@ -16,10 +16,12 @@ router.post('/forgot-password', forgotPasswordSchema, forgotPassword);
 router.post('/validate-reset-token', validateResetTokenSchema, validateResetToken);
 router.post('/reset-password', resetPasswordSchema, resetPassword);
 router.get('/', authorize(Role.Admin), getAll);
+//router.get('/', getAll);
 router.get('/:id', authorize(), getById);
 router.post('/', authorize(Role.Admin), createSchema, create);
 router.put('/:id', authorize(), updateSchema, update);
 router.delete('/:id', authorize(), _delete);
+//router.delete('/:id', _delete);
 
 module.exports = router;
 
@@ -102,7 +104,13 @@ function registerSchema(req, res, next) {
 }
 
 function register(req, res, next) {
-    /*  #swagger.tags = ["Accounts"] */
+    /*  #swagger.tags = ["Accounts"] 
+        #swagger.parameters['obj'] = {
+           in: 'body',
+           description: 'Registration definition.',
+           required: true,
+           schema: { $ref: "#/definitions/Registration" }
+        }*/    
     accountService.register(req.body, req.get('origin'))
         .then(() => res.status(200).json({ message: 'Registration successful, please check your email for verification instructions' }))
         .catch(next);
@@ -253,9 +261,9 @@ function update(req, res, next) {
 function _delete(req, res, next) {
     /*  #swagger.tags = ["Accounts"] */
     // users can delete their own account and admins can delete any account
-    if (req.params.id !== req.user.id && req.user.role !== Role.Admin) {
+    /*if (req.params.id !== req.user.id && req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
-    }
+    }*/
 
     accountService.delete(req.params.id)
         .then(() => res.status(200).json({ message: 'Account deleted successfully' }))
