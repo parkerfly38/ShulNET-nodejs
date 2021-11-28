@@ -6,13 +6,22 @@ const Invoice = db.invoice;
 exports.create = (req, res) =>
 {
     // #swagger.tags = ["Invoices"]
+    /* #swagger.parameters['obj'] = {
+        in: 'body',
+        description: 'Invoice JSON',
+        required: true,
+        schema: { $ref: "#/definitions/Invoice" }
+    }
+       #swagger.responses[201] = {
+           schema: { $ref: "#/definitions/Invoice" }
+       }
+    */
     const invoice = new Invoice(req.body);
 
     invoice
         .save(invoice)
         .then(data => {
-            console.log(data);
-            res.send(data);
+            res.status(201).send(data);
         })
         .catch(err =>
             {
@@ -22,17 +31,47 @@ exports.create = (req, res) =>
 
 exports.findAll = (req, res) => {
     // #swagger.tags = ["Invoices"]
+    /* #swagger.responses[200] = {
+            schema: [{ $ref: "#/definitions/Invoice" }]
+        }
+    */
     Invoice.find()
         .then(data => {
-            res.send(data);
+            res.status(200).send(data);
         })
         .catch(err => {
             res.status(500).send({message: err.message || "An error occurred retrieving invoices."});
         })
 };
 
+exports.findByMemberId = (req, res) =>
+{
+    /*  #swagger.tags = ["Invoices"]
+        #swagger.responses[200] = {
+            schema: [{ $ref: "#/definitions/Invoice"}]
+        }
+    */
+   const member_id = req.params.member_id;
+   Invoice.find({member_id: member_id})
+        .then(data => {
+            if (!data)
+            {
+                res.status(404).send({ message: `Invoices for member ${member_id} not found.`});
+            } else {
+                res.status(200).send(data);
+            }
+        })
+        .catch(err => {
+            res.status(500).send({message: err.message || "An error occurred retrieiving invoices."});
+        });
+};
+
 exports.fineOne = (req, res) => {
     // #swagger.tags = ["Invoices"]
+    /* #swagger.responses[200] = {
+        schema: { $ref: "#/definitions/Invoice"}
+    }
+    */
     const id = req.params.id;
     
     Invoice.findById(id)
@@ -51,6 +90,13 @@ exports.fineOne = (req, res) => {
 
 exports.update = (req, res) => {
     // #swagger.tags = ["Invoices"]
+    /* #swagger.parameters['obj'] = {
+        in: 'body',
+        description: 'Invoice JSON',
+        required: true,
+        schema: { $ref: "#/definitions/Invoice"}
+    }
+    */
     if (!req.body)
     {
         return res.status(400).send({ message: "Data may not be empty. "});
@@ -63,7 +109,7 @@ exports.update = (req, res) => {
                     message: `Cannot update invoice with id = ${id}.  Invoice not found.`
                 });
             } else {
-                res.send({message: "Invoice was updated successfully."});
+                res.status(200).send({message: "Invoice was updated successfully."});
             }                               
         })
         .catch(err => {
@@ -80,7 +126,7 @@ exports.delete = (req, res) => {
             {
                 res.status(404).send({ message: `Cannot delete invoice with id = ${id}. Family member not found.`});
             } else {
-                res.send({ message: `${data.deletedCount } Invoices were deleted.`});
+                res.status(200).send({ message: `${data.deletedCount } Invoices were deleted.`});
             }
         })
         .catch(err => {

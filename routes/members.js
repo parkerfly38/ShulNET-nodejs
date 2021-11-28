@@ -4,24 +4,26 @@
 var express = require("express");
 const MemberController = require("../controllers/member.controller");
 const MemberFamilyController = require("../controllers/member_family.controller");
+const authorize = require('../middleware/authorize');
+const Role = require('../handlers/role');
 
 var router = express.Router();
 
 //members
-router.get("/", MemberController.findAll);
+router.get("/", authorize(Role.Admin), MemberController.findAll);
 router.get("/:id", MemberController.findOne);
-router.post("/", MemberController.create);
-router.put("/:id", MemberController.update);
-router.delete("/:id", MemberController.delete);
+router.post("/", authorize(Role.Admin), MemberController.create);
+router.put("/:id", authorize(), MemberController.update);
+router.delete("/:id", authorize(Role.Admin), MemberController.delete);
 
 //family members
-router.get("/:member_id/family", MemberFamilyController.findAll);
-router.get("/family/:id", MemberFamilyController.findOne);
-router.post("/family", MemberFamilyController.create);
-router.put("/family/:id", MemberFamilyController.update);
-router.delete("/family/:id", MemberFamilyController.delete);
+router.get("/:member_id/family",authorize(), MemberFamilyController.findAll);
+router.get("/family/:id", authorize(), MemberFamilyController.findOne);
+router.post("/family", authorize(), MemberFamilyController.create);
+router.put("/family/:id", authorize(), MemberFamilyController.update);
+router.delete("/family/:id", authorize(), MemberFamilyController.delete);
 
 //invoices
-router.get("/:member_id/invoices", MemberController.getMemberInvoices);
+router.get("/:member_id/invoices", authorize(), MemberController.getMemberInvoices);
 
 module.exports = router;

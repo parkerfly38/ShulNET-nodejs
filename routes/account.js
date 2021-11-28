@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
 const validateRequest = require('../middleware/validate-request');
-const authorize = require('../middleware/authorize')
+const authorize = require('../middleware/authorize');
 const Role = require('../handlers/role');
 const accountService = require('../controllers/account.controller');
 
