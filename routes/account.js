@@ -54,6 +54,15 @@ function refreshToken(req, res, next) {
         #swagger.responses[200] = {
             schema: { $ref: "#/definitions/Account" }
         }
+        #swagger.parameters["refreshToken"] = {
+            in: 'cookie',
+            description: 'The refresh token cookie',
+            schema:
+            {
+                type: 'string',
+                example: '51872eca5efedcf424db4cf5afd16a9d00ad25b743a034c9c221afc85dcd5e4ad6e3f98607550'
+            }
+        }
     */
     const token = req.cookies.refreshToken;
     const ipAddress = req.ip;
@@ -176,6 +185,7 @@ function resetPassword(req, res, next) {
 
 function getAll(req, res, next) {
     /*  #swagger.tags = ["Accounts"]
+        #swagger.security = [{ "Bearer": [] }]
         #swagger.responses[200] = {
             schema: [{ $ref: "#/definitions/Account" }]
         } */

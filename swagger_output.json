@@ -17,6 +17,14 @@
     "http",
     "https"
   ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Enter your bearer token in the format Bearer &lt;token&rt;"
+    }
+  },
   "consumes": [
     "application/json"
   ],
@@ -43,6 +51,9 @@
                 "name": "main"
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -71,6 +82,9 @@
             "schema": {
               "$ref": "#/definitions/Member"
             }
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -136,6 +150,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -157,6 +174,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
             "description": "Not Found"
@@ -194,6 +214,9 @@
             },
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -224,6 +247,9 @@
             },
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -252,6 +278,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -273,6 +302,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
             "description": "Not Found"
@@ -307,6 +339,9 @@
               "$ref": "#/definitions/FamilyMember"
             }
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -335,6 +370,9 @@
               "$ref": "#/definitions/Invoice"
             }
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -350,8 +388,27 @@
           "Invoices"
         ],
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Invoice JSON",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Invoice"
+            }
+          }
+        ],
         "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/Invoice"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -364,6 +421,60 @@
         "description": "",
         "parameters": [],
         "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Invoice"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/invoices/member/{member_id}": {
+      "get": {
+        "tags": [
+          "Invoices"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "member_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Invoice"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -385,6 +496,12 @@
           }
         ],
         "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Invoice"
+            },
+            "description": "OK"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -404,9 +521,21 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Invoice JSON",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Invoice"
+            }
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "400": {
             "description": "Bad Request"
           },
@@ -429,6 +558,9 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -461,6 +593,9 @@
             "schema": {
               "$ref": "#/definitions/Calendar"
             }
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -547,6 +682,9 @@
           "204": {
             "description": "No Content"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -568,6 +706,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
             "description": "Not Found"
@@ -602,6 +743,9 @@
               "$ref": "#/definitions/Yahrzeit"
             }
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -625,6 +769,9 @@
                 "name": "main"
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -652,6 +799,9 @@
             "schema": {
               "$ref": "#/definitions/Yahrzeit"
             }
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
             "description": "Not Found"
@@ -690,6 +840,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -711,6 +864,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
             "description": "Not Found"
@@ -744,6 +900,9 @@
             "schema": {
               "$ref": "#/definitions/Member"
             }
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -857,6 +1016,9 @@
           "204": {
             "description": "No Content"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -878,6 +1040,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
             "description": "Not Found"
@@ -924,7 +1089,26 @@
           "Accounts"
         ],
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "refreshToken",
+            "in": "cookie",
+            "description": "The refresh token cookie",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "51872eca5efedcf424db4cf5afd16a9d00ad25b743a034c9c221afc85dcd5e4ad6e3f98607550"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -971,7 +1155,17 @@
           "Accounts"
         ],
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Registration definition.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Registration"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1058,7 +1252,12 @@
           "401": {
             "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -1158,6 +1357,47 @@
     }
   },
   "definitions": {
+    "Registration": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "brian.kresge@gmail.com"
+        },
+        "title": {
+          "type": "string",
+          "example": "None"
+        },
+        "firstName": {
+          "type": "string",
+          "example": "Brian"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Kresge"
+        },
+        "password": {
+          "type": "string",
+          "example": ""
+        },
+        "confirmPassword": {
+          "type": "string",
+          "example": ""
+        },
+        "acceptTerms": {
+          "type": "boolean",
+          "example": true
+        },
+        "role": {
+          "type": "string",
+          "example": "Admin"
+        },
+        "created": {
+          "type": "string",
+          "example": "2021-11-27"
+        }
+      }
+    },
     "Account": {
       "type": "object",
       "properties": {

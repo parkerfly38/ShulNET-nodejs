@@ -15,6 +15,7 @@ exports.create = (req, res) => {
         #swagger.responses[201] = {
             schema: { "$ref": "#/definitions/Calendar" }
         }
+        #swagger.security = [{ "Bearer": [] }]         
     */
    const calendar = new Calendar(req.body);
 
@@ -70,6 +71,7 @@ exports.update = (req, res) => {
            required: true,
            schema: { "$ref": "#/definitions/Member" }
         }
+        #swagger.security = [{ "Bearer": [] }]         
     */
    const id = req.params.id;
     Calendar.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
@@ -91,6 +93,7 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
        // #swagger.tags = ["Calendar"]
+       // #swagger.security = [{ "Bearer": [] }]         
        const id = req.params.id;
        Member.findByIdAndRemove(id, { useFindAndModify: false })
         .then(data => {

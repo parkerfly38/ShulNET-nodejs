@@ -12,6 +12,7 @@ exports.create = (req, res) => {
         #swagger.responses[201] = {
             schema: { $ref: "#/definitions/Member" }
         }
+        #swagger.security = [{ "Bearer": [] }]         
     */
    const event = new Event(req.body);
    event
@@ -28,7 +29,7 @@ exports.findAll = (req, res) => {
     /*  #swagger.tags = ["Events"] 
         #swagger.responses[200] = {
             schema: [{ $ref: "#/definitions/Event "}]
-        }
+        }     
     */
     Event.find()
         .then(data => {
@@ -82,7 +83,8 @@ exports.findOne = (req, res) => {
 };
 
 exports.update = (req, res) => {
-    /*  #swagger.tags = ["Events"] */
+    /*  #swagger.tags = ["Events"]
+        #swagger.security = [{ "Bearer": [] }]          */
     const id = req.params.id;
     Event.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
         .then(data => {
@@ -99,7 +101,8 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-    /*  #swagger.tags = ["Events"] */
+    /*  #swagger.tags = ["Events"]
+        #swagger.security = [{ "Bearer": [] }]          */
     const id = req.params.id;
     Event.findByIdAndRemove(id, { useFindAndModify: false })
         .then(data => {

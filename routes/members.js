@@ -11,7 +11,7 @@ var router = express.Router();
 
 //members
 router.get("/", authorize(Role.Admin), MemberController.findAll);
-router.get("/:id", MemberController.findOne);
+router.get("/:id", authorize(), MemberController.findOne);
 router.post("/", authorize(Role.Admin), MemberController.create);
 router.put("/:id", authorize(), MemberController.update);
 router.delete("/:id", authorize(Role.Admin), MemberController.delete);

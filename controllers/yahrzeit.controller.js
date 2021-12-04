@@ -14,7 +14,8 @@ exports.create = (req, res) => {
      }
      #swagger.responses[201] = {
       schema: { $ref: "#/definitions/Yahrzeit" }    
-     } */
+     }
+     #swagger.security = [{ "Bearer": [] }]         */
     const yahrzeit = new Yahrzeit(req.body);
     yahrzeit
         .save(yahrzeit)
@@ -30,7 +31,8 @@ exports.findAll = (req, res) => {
     /* #swagger.tags = ["Yahrzeit"]
      #swagger.responses[200] = {
       schema: [{ $ref: "#/definitions/Yahrzeit" }]
-    } */
+    }
+    #swagger.security = [{ "Bearer": [] }]          */
     Yahrzeit.find( req.body )
         .then(data => {
             res.status(200).send(data);
@@ -46,6 +48,7 @@ exports.findOne = (req, res) =>
      #swagger.responses[200] = {
       schema: { $ref: "#/definitions/Yahrzeit" }
      }
+     #swagger.security = [{ "Bearer": [] }]         
      */
     const id = req.params.id;
 
@@ -70,7 +73,8 @@ exports.update = (req, res) => {
       description: 'Yahrzeit definition',
       required: true,
       schema: { $ref: "#/definitions/Yahrzeit" }
-     } */
+     }
+     #swagger.security = [{ "Bearer": [] }]          */
     if (!req.body)
     {
         return res.status(400).send({ message: "Data may not be empty."});
@@ -94,6 +98,7 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
     // #swagger.tags = ["Yahrzeit"]
+    // #swagger.security = [{ "Bearer": [] }]         
     const id = req.params.id;
     Member.findByIdAndRemove(id, { useFindAndModify: false })
         .then(data => {

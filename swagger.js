@@ -11,28 +11,15 @@ const doc = {
     schemes: ['http', 'https'],
     consumes: ['application/json'],
     produces: ['application/json'],
-    tags: [
-        {
-            "name": "User",
-            "description": "Endpoints"
-        }
-    ],
-    /*securityDefinitions: {
-        api_key: {
-            type: "apiKey",
-            name: "api_key",
-            in: "header"
-        },
-        petstore_auth: {
-            type: "oauth2",
-            authorizationUrl: "https://petstore.swagger.io/oauth/authorize",
-            flow: "implicit",
-            scopes: {
-                read_pets: "read your pets",
-                write_pets: "modify pets in your account"
-            }
-        }
-    },*/
+    securityDefinitions: {
+      Bearer:
+      {
+        type: "apiKey",
+        name: "Authorization",
+        in: "header",
+        description: "Enter your bearer token in the format Bearer &lt;token&gt;"
+      }
+    },
     definitions: {
         Registration: {
             email: "brian.kresge@gmail.com",
@@ -127,7 +114,7 @@ const doc = {
             wedding_anniversary: "2006-06-18",
             quickbooks_customer_id: ""
         },
-        FamilyMember: {
+        Family_Member: {
             member_id: "",
             first_name: "Amelia",
             last_name: "Kresge",

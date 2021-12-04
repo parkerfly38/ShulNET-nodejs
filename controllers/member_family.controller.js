@@ -10,11 +10,12 @@ exports.create = (req, res) => {
             in: 'body',
             description: 'Family member definition.',
             required: true,
-            schema: { "$ref": "#/definitions/FamilyMember" }
+            schema: { "$ref": "#/definitions/Family_Member" }
         }
         #swagger.responses[201] = {
-            schema: { "$ref": "#/definitions/FamilyMember" }
+            schema: { "$ref": "#/definitions/Family_Member" }
         }
+        #swagger.security = [{ "Bearer": [] }]
     */
     const memberfamily = new MemberFamily(req.body);
 
@@ -32,8 +33,9 @@ exports.findAll = (req, res) => {
     // #swagger.tags = ["Family Members"]
     /*
         #swagger.responses[200] = {
-            schema: [{ "$ref": "#/definitions/FamilyMember" }]
+            schema: [{ "$ref": "#/definitions/Family_Member" }]
         }
+        #swagger.security = [{ "Bearer": [] }]
     */
     if (!req.params.member_id)
     {
@@ -64,8 +66,9 @@ exports.findOne = (req, res) => {
     // #swagger.tags = ["Family Members"]
     /*
         #swagger.responses[200] = {
-            schema: { "$ref": "#/definitions/FamilyMember" }
+            schema: { "$ref": "#/definitions/Family_Member" }
         }
+        #swagger.security = [{ "Bearer": [] }]
     */
     const id = req.params.id;
 
@@ -85,6 +88,7 @@ exports.findOne = (req, res) => {
 
 exports.update = (req, res) => {
     // #swagger.tags = ["Family Members"]
+    // #swagger.security = [{ "Bearer": [] }]
     if (!req.body)
     {
         return res.status(400).send({ message: "Data may not be empty. "});
@@ -107,6 +111,7 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
     // #swagger.tags = ["Family Members"]
+    // #swagger.security = [{ "Bearer": [] }]
     const id = req.params.id;
     MemberFamily.findByIdAndRemove(id, { useFindAndModify: false })
         .then(data => {

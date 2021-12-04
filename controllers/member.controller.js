@@ -13,6 +13,7 @@ exports.create = (req, res) => {
            required: true,
            schema: { $ref: "#/definitions/Member" }
         }
+        #swagger.security = [{ "Bearer": [] }]
         #swagger.responses[201] = {
             schema: { "$ref": "#/definitions/Member" }
         }
@@ -37,6 +38,7 @@ exports.findAll = (req, res) => {
             /* #swagger.responses[200] = {
                     schema: [{  "$ref": "#/definitions/Member" }]
                 }
+                #swagger.security = [{ "Bearer": [] }]                
                 */
             res.status(200).send(data);
         })
@@ -47,6 +49,7 @@ exports.findAll = (req, res) => {
 
 exports.findOne = (req, res) => {
     // #swagger.tags = ["Members"]
+    // #swagger.security = [{ "Bearer": [] }]
     const id = req.params.id;
 
     Member.findById(id)
@@ -75,6 +78,7 @@ exports.update = (req, res) => {
            required: true,
            schema: { $ref: "#/definitions/Member" }
         }
+        #swagger.security = [{ "Bearer": [] }]
     */
     if (!req.body)
     {
@@ -100,6 +104,7 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
     // #swagger.tags = ["Members"]
+    // #swagger.security = [{ "Bearer": [] }]
     const id = req.params.id;
     Member.findByIdAndRemove(id, { useFindAndModify: false })
         .then(data => {
@@ -119,6 +124,7 @@ exports.delete = (req, res) => {
 
 exports.getMemberInvoices = (req, res) => {
     // #swagger.tags = ["Members","Invoices"]
+    // #swagger.security = [{ "Bearer": [] }]
     const id = req.params.member_id;
     Invoice.find({ member_id: id })
         .then(data => {

@@ -12,6 +12,7 @@ exports.create = (req, res) =>
         required: true,
         schema: { $ref: "#/definitions/Invoice" }
     }
+       #swagger.security = [{ "Bearer": [] }]         
        #swagger.responses[201] = {
            schema: { $ref: "#/definitions/Invoice" }
        }
@@ -34,6 +35,7 @@ exports.findAll = (req, res) => {
     /* #swagger.responses[200] = {
             schema: [{ $ref: "#/definitions/Invoice" }]
         }
+        #swagger.security = [{ "Bearer": [] }]         
     */
     Invoice.find()
         .then(data => {
@@ -50,6 +52,7 @@ exports.findByMemberId = (req, res) =>
         #swagger.responses[200] = {
             schema: [{ $ref: "#/definitions/Invoice"}]
         }
+        #swagger.security = [{ "Bearer": [] }]         
     */
    const member_id = req.params.member_id;
    Invoice.find({member_id: member_id})
@@ -71,6 +74,7 @@ exports.fineOne = (req, res) => {
     /* #swagger.responses[200] = {
         schema: { $ref: "#/definitions/Invoice"}
     }
+    #swagger.security = [{ "Bearer": [] }]         
     */
     const id = req.params.id;
     
@@ -96,6 +100,7 @@ exports.update = (req, res) => {
         required: true,
         schema: { $ref: "#/definitions/Invoice"}
     }
+    #swagger.security = [{ "Bearer": [] }]         
     */
     if (!req.body)
     {
@@ -119,6 +124,7 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
     // #swagger.tags = ["Invoices"]
+    // #swagger.security = [{ "Bearer": [] }]         
     const id = req.params.id;
     Invoice.findByIdAndRemove(id, { useFindAndModify: false })
         .then(data => {

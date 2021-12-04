@@ -6,10 +6,10 @@ const Role = require('../handlers/role');
 var router = express.Router();
 
 router.post("/", authorize(), InvoiceController.create);
-router.get("/", authorize(Role.Admin), InvoiceController.findAll);
+router.get("/", InvoiceController.findAll);
 router.get("/member/:member_id", authorize(), InvoiceController.findByMemberId);
-router.get("/:id", InvoiceController.fineOne);
-router.put("/:id", InvoiceController.update);
-router.delete("/:id", InvoiceController.delete);
+router.get("/:id", authorize(), InvoiceController.fineOne);
+router.put("/:id", authorize(), InvoiceController.update);
+router.delete("/:id", authorize(Role.Admin), InvoiceController.delete);
 
 module.exports = router;
