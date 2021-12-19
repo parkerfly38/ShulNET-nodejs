@@ -21,6 +21,10 @@ const doc = {
       }
     },
     definitions: {
+        Authorization: {
+            email: "brian.kresge@gmail.com",
+            password: "<password>"
+        },
         Registration: {
             email: "brian.kresge@gmail.com",
             title: "None",

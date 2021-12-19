@@ -15,6 +15,7 @@ router.get("/:id", authorize(), MemberController.findOne);
 router.post("/", authorize(Role.Admin), MemberController.create);
 router.put("/:id", authorize(), MemberController.update);
 router.delete("/:id", authorize(Role.Admin), MemberController.delete);
+router.post("/byemail",authorize(), MemberController.getMemberByEmail);
 
 //family members
 router.get("/:member_id/family",authorize(), MemberFamilyController.findAll);

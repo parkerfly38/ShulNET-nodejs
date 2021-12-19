@@ -11,10 +11,6 @@ const app = express();
 
 console.log(process.env);
 
-var corsOptions = { origin: "*" };
-
-app.use(cors(corsOptions));
-
 app.use(express.json());
 
 const db = require("./models/");
@@ -32,11 +28,30 @@ db.mongoose.connect(db.url, {useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-
-
+const whitelist = ['http://localhost:8081','http://localhost:6868','*'];
+const corsOptions = {
+    credentials: true, // This is important.
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+ 
+        if (whitelist.indexOf(origin) === -1) {
+          var msg = `This site ${origin} does not have an access. Only specific domains are allowed to access it.`;
+          return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    }
+  };
+  
+app.use(cors(corsOptions));
 app.use("/", router);
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+var swaggerOptions = {
+    customCss: ' .swagger-ui .topbar { display: none; }',
+    customSiteTitle: 'ShulNET NodeJS API'
+};
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile, swaggerOptions));
+
 
 const PORT = process.env.NODE_DOCKER_PORT || 8080;
 app.listen(PORT, () => {

@@ -16,7 +16,7 @@ module.exports = mongoose => {
         dob: {type: Date, required: false },
         title: {type: String, required: false },
         cell: { type: String, required: false },
-        email: { type: String, required: true },
+        email: { type: String, required: true, unique: true },
         gender: { type: String, required: false },
         hebrew_name: { type: String, required: false },
         father_hebrew_name: { type: String, required: false },

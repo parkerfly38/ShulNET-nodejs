@@ -145,3 +145,33 @@ exports.getMemberInvoices = (req, res) => {
             });
         });
 };
+
+exports.getMemberByEmail = (req, res) => {
+    /*  #swagger.tags = ["Members"]
+        #swagger.security = [{ "Bearer": [] }]
+        #swagger.responses[200] = {
+            schema: { "$ref":"#/definitions/Member" }
+        }
+        #swagger.parameters['obj'] = {
+           in: 'body',
+           description: 'Email of user.',
+           required: true,
+           schema: { $email: "" }
+        }
+    */
+   const email = req.body.email;
+   Member.find({ email: email })
+        .then(data => {
+            if (!data)
+            {
+                res.status(404).send({ message: "No user found for member." });
+            } else {
+                res.status(200).send(data);
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "An error occurred retrieving a member."
+            });
+        });
+};

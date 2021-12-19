@@ -35,6 +35,12 @@ function authenticateSchema(req, res, next) {
 
 function authenticate(req, res, next) {
     /*  #swagger.tags = ["Accounts"]
+        #swagger.parameters['obj'] = {
+           in: 'body',
+           description: 'Authorization components.',
+           required: true,
+           schema: { $ref: "#/definitions/Authorization" }
+        }
         #swagger.responses[200] = {
             schema: { $ref: "#/definitions/Account" }
         }
