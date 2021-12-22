@@ -24,7 +24,7 @@ module.exports = mongoose => {
         bar_bat_mitzvah_portion: { type: String, required: false },
         aliyah: { type: String, required: false },
         dvar_torah: { type: String, required: false },
-        bnai_mitzvah_date: {type: Date, required: false },
+        bnai_mitzvah_date: {type: String, required: false },
         haftarah: { type: String, required: false },
         wedding_anniversary: { type: Date, required: false },
         quickbooks_customer_id: { type: String, required: false }

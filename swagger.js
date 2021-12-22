@@ -38,6 +38,7 @@ const doc = {
         },
         Account: {
             email: "brian.kresge@gmail.com",
+            member_id: "",
             passwordHash: "",
             title: "None",
             firstName: "Brian",

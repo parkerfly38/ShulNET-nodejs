@@ -7,12 +7,7 @@
   },
   "host": "localhost:6868",
   "basePath": "/",
-  "tags": [
-    {
-      "name": "User",
-      "description": "Endpoints"
-    }
-  ],
+  "tags": [],
   "schemes": [
     "http",
     "https"
@@ -22,7 +17,7 @@
       "type": "apiKey",
       "name": "Authorization",
       "in": "header",
-      "description": "Enter your bearer token in the format Bearer &lt;token&rt;"
+      "description": "Enter your bearer token in the format Bearer &lt;token&gt;"
     }
   },
   "consumes": [
@@ -58,7 +53,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -89,7 +89,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/members/{id}": {
@@ -113,13 +118,21 @@
               "$ref": "#/definitions/Member"
             }
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -156,7 +169,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -184,7 +202,62 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/members/byemail": {
+      "post": {
+        "tags": [
+          "Members"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Email of user.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": ""
+                }
+              },
+              "required": [
+                "email"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Member"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/members/{member_id}/family": {
@@ -206,7 +279,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/FamilyMember"
+                "$ref": "#/definitions/Family_Member"
               },
               "xml": {
                 "name": "main"
@@ -223,7 +296,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/members/family/{id}": {
@@ -243,7 +321,7 @@
         "responses": {
           "200": {
             "schema": {
-              "$ref": "#/definitions/FamilyMember"
+              "$ref": "#/definitions/Family_Member"
             },
             "description": "OK"
           },
@@ -256,7 +334,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -284,7 +367,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -312,7 +400,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/members/family": {
@@ -328,7 +421,7 @@
             "description": "Family member definition.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/FamilyMember"
+              "$ref": "#/definitions/Family_Member"
             }
           }
         ],
@@ -336,7 +429,7 @@
           "201": {
             "description": "Created",
             "schema": {
-              "$ref": "#/definitions/FamilyMember"
+              "$ref": "#/definitions/Family_Member"
             }
           },
           "401": {
@@ -345,7 +438,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/members/{member_id}/invoices": {
@@ -379,7 +477,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/invoices/": {
@@ -412,7 +515,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "get": {
         "tags": [
@@ -433,13 +541,15 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized"
-          },
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/invoices/member/{member_id}": {
@@ -478,7 +588,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/invoices/{id}": {
@@ -502,13 +617,21 @@
             },
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -539,10 +662,18 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -561,13 +692,21 @@
           "200": {
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/calendar/": {
@@ -600,7 +739,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "get": {
         "tags": [
@@ -688,7 +832,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -716,7 +865,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/yahrzeit/": {
@@ -749,7 +903,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "get": {
         "tags": [
@@ -776,7 +935,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/yahrzeit/{id}": {
@@ -809,7 +973,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -846,7 +1015,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -874,7 +1048,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/event/": {
@@ -907,7 +1086,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "get": {
         "tags": [
@@ -1022,7 +1206,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -1050,7 +1239,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/account/authenticate": {
@@ -1063,13 +1257,10 @@
           {
             "name": "obj",
             "in": "body",
+            "description": "Authorization components.",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "schema": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Authorization"
             }
           }
         ],
@@ -1357,6 +1548,19 @@
     }
   },
   "definitions": {
+    "Authorization": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "brian.kresge@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "<password>"
+        }
+      }
+    },
     "Registration": {
       "type": "object",
       "properties": {
@@ -1404,6 +1608,10 @@
         "email": {
           "type": "string",
           "example": "brian.kresge@gmail.com"
+        },
+        "member_id": {
+          "type": "string",
+          "example": ""
         },
         "passwordHash": {
           "type": "string",
@@ -1711,7 +1919,7 @@
         }
       }
     },
-    "FamilyMember": {
+    "Family_Member": {
       "type": "object",
       "properties": {
         "member_id": {

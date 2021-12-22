@@ -1,4 +1,5 @@
 const { Schema } = require('mongoose');
+var Member = require("./member.model");
 
 module.exports = mongoose =>
 {
@@ -8,6 +9,7 @@ module.exports = mongoose =>
         title: { type: String, required: true },
         firstName: { type: String, required: true },
         lastName: { type: String, required: true },
+        member_id: { type: Schema.Types.ObjectId, ref: Member },
         acceptTerms: Boolean,
         role: { type: String, required: true },
         verificationToken: String,

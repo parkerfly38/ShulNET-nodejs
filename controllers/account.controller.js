@@ -25,7 +25,14 @@ module.exports = {
 
 async function authenticate({ email, password, ipAddress }) {
     const account = await db.account.findOne({ email });
-
+    const member = await db.members.findOne({ 'email': email });
+    if (member != null)
+    {
+        account.member_id = member.id;
+        update(account.id, account);
+    } else {
+        account.member_id = "";
+    }
     if (!account || !account.isVerified || !bcrypt.compareSync(password, account.passwordHash)) {
         throw 'Email or password is incorrect';
     }
@@ -48,7 +55,7 @@ async function authenticate({ email, password, ipAddress }) {
 async function refreshToken({ token, ipAddress }) {
     const refreshToken = await getRefreshToken(token);
     const { account } = refreshToken;
-
+    console.log(account);
     // replace old refresh token with a new one and save
     const newRefreshToken = generateRefreshToken(account, ipAddress);
     refreshToken.revoked = Date.now();
@@ -229,17 +236,21 @@ function hash(password) {
 
 function generateJwtToken(account) {
     // create a jwt token containing the account id that expires in 15 minutes
-    return jwt.sign({ sub: account.id, id: account.id }, config.secret, { expiresIn: '15m' });
+    var token =  jwt.sign({ sub: account.id, id: account.id }, config.secret, { expiresIn: '15m' });
+    console.log(token);
+    return token;
 }
 
 function generateRefreshToken(account, ipAddress) {
     // create a refresh token that expires in 7 days
-    return new db.refreshToken({
+    var refreshToken = new db.refreshToken({
         account: account.id,
         token: randomTokenString(),
         expires: new Date(Date.now() + 7*24*60*60*1000),
         createdByIp: ipAddress
     });
+    console.log(refreshToken);
+    return refreshToken;
 }
 
 function randomTokenString() {
@@ -247,8 +258,8 @@ function randomTokenString() {
 }
 
 function basicDetails(account) {
-    const { id, title, firstName, lastName, email, role, created, updated, isVerified } = account;
-    return { id, title, firstName, lastName, email, role, created, updated, isVerified };
+    const { id, title, firstName, lastName, email, role, created, updated, isVerified, member_id } = account;
+    return { id, title, firstName, lastName, email, role, created, updated, isVerified, member_id };
 }
 
 async function sendVerificationEmail(account, origin) {
