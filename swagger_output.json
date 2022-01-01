@@ -1247,183 +1247,10 @@
         ]
       }
     },
-    "/account/authenticate": {
-      "post": {
-        "tags": [
-          "Accounts"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "Authorization components.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Authorization"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Account"
-            }
-          }
-        }
-      }
-    },
-    "/account/refresh-token": {
-      "post": {
-        "tags": [
-          "Accounts"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "refreshToken",
-            "in": "cookie",
-            "description": "The refresh token cookie",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "string"
-                },
-                "example": {
-                  "type": "string",
-                  "example": "51872eca5efedcf424db4cf5afd16a9d00ad25b743a034c9c221afc85dcd5e4ad6e3f98607550"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Account"
-            }
-          }
-        }
-      }
-    },
-    "/account/revoke-token": {
-      "post": {
-        "tags": [
-          "Accounts"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      }
-    },
-    "/account/register": {
-      "post": {
-        "tags": [
-          "Accounts"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "Registration definition.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Registration"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/account/verify-email": {
-      "post": {
-        "tags": [
-          "Accounts"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/account/forgot-password": {
-      "post": {
-        "tags": [
-          "Accounts"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/account/validate-reset-token": {
-      "post": {
-        "tags": [
-          "Accounts"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/account/reset-password": {
-      "post": {
-        "tags": [
-          "Accounts"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/account/": {
+    "/portal/": {
       "get": {
         "tags": [
-          "Accounts"
+          "Portal"
         ],
         "description": "",
         "parameters": [],
@@ -1433,15 +1260,121 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Account"
+                "$ref": "#/definitions/Portal"
               },
               "xml": {
                 "name": "main"
               }
             }
           },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Portal"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Portal definitions.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Portal"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/Portal"
+            }
+          },
           "401": {
             "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/portal/{id}": {
+      "get": {
+        "tags": [
+          "Portal"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Portal"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Portal"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Update portal definitions.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Portal"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         },
         "security": [
@@ -1450,82 +1383,9 @@
           }
         ]
       },
-      "post": {
-        "tags": [
-          "Accounts"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Account"
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      }
-    },
-    "/account/{id}": {
-      "get": {
-        "tags": [
-          "Accounts"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Account"
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Accounts"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Account"
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      },
       "delete": {
         "tags": [
-          "Accounts"
+          "Portal"
         ],
         "description": "",
         "parameters": [
@@ -1542,6 +1402,76 @@
           },
           "401": {
             "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/portal/settings": {
+      "get": {
+        "tags": [
+          "Portal"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Portal"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/portal/settings/{id}": {
+      "get": {
+        "tags": [
+          "Portal"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Portal"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -1977,6 +1907,155 @@
         "bnai_mitzvah_date": {
           "type": "string",
           "example": "2011-01-01"
+        }
+      }
+    },
+    "Portal": {
+      "type": "object",
+      "properties": {
+        "institution_name": {
+          "type": "string",
+          "example": "Congregation Beth Israel"
+        },
+        "address_line_1": {
+          "type": "string",
+          "example": "144 York Street"
+        },
+        "address_line_2": {
+          "type": "string",
+          "example": ""
+        },
+        "city": {
+          "type": "string",
+          "example": "Bangor"
+        },
+        "state": {
+          "type": "string",
+          "example": "ME"
+        },
+        "zip": {
+          "type": "string",
+          "example": "04401"
+        },
+        "country": {
+          "type": "string",
+          "example": "USA"
+        },
+        "phone": {
+          "type": "string",
+          "example": "207-945-3433"
+        },
+        "fax": {
+          "type": "string",
+          "example": ""
+        },
+        "webUrl": {
+          "type": "string",
+          "example": "www.cbisrael.org"
+        },
+        "officeEmail": {
+          "type": "string",
+          "example": "office@cbisrael.org"
+        },
+        "rabbis": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "first_name": {
+                "type": "string",
+                "example": "Rachel"
+              },
+              "last_name": {
+                "type": "string",
+                "example": "Smith"
+              },
+              "title": {
+                "type": "string",
+                "example": "Associate Rabbi"
+              },
+              "phone": {
+                "type": "string",
+                "example": "555-555-5555"
+              },
+              "email": {
+                "type": "string",
+                "example": "associaterabbi@email.org"
+              }
+            }
+          }
+        },
+        "officers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "first_name": {
+                "type": "string",
+                "example": "Robert"
+              },
+              "last_name": {
+                "type": "string",
+                "example": "Goldberg"
+              },
+              "title": {
+                "type": "string",
+                "example": "President"
+              },
+              "phone": {
+                "type": "string",
+                "example": "555-555-5555"
+              },
+              "email": {
+                "type": "string",
+                "example": "president@email.org"
+              }
+            }
+          }
+        },
+        "committee_chairs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "first_name": {
+                "type": "string",
+                "example": "Marla"
+              },
+              "last_name": {
+                "type": "string",
+                "example": "Goldberg"
+              },
+              "title": {
+                "type": "string",
+                "example": "Ritual Committee Chair"
+              },
+              "phone": {
+                "type": "string",
+                "example": "555-555-5555"
+              },
+              "email": {
+                "type": "string",
+                "example": "cochair@email.org"
+              }
+            }
+          }
+        },
+        "portal_settings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "option_name": {
+                "type": "string",
+                "example": "api_key2"
+              },
+              "option_value": {
+                "type": "string",
+                "example": "apivalue"
+              }
+            }
+          }
         }
       }
     },

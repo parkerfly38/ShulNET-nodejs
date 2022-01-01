@@ -233,8 +233,10 @@ function createSchema(req, res, next) {
 function create(req, res, next) {
     /*  #swagger.tags = ["Accounts"] */
     /*  #swagger.responses[200] = {
-        schema: { $ref: "#/definitions/Account" }
-    } */
+            schema: { $ref: "#/definitions/Account" }
+        }                 
+        #swagger.security = [{ "Bearer": [] }]
+    */
     accountService.create(req.body)
         .then(account => res.status(200).json(account))
         .catch(next);
@@ -261,9 +263,11 @@ function updateSchema(req, res, next) {
 
 function update(req, res, next) {
     /*  #swagger.tags = ["Accounts"]
+        #swagger.security = [{ "Bearer": [] }]
         #swagger.responses[200] = {
             schema: { $ref: "#/definitions/Account" }
-        } */
+        } 
+    */
     // users can update their own account and admins can update any account
     if (req.params.id !== req.user.id && req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
@@ -276,11 +280,12 @@ function update(req, res, next) {
 
 function _delete(req, res, next) {
     /*  #swagger.tags = ["Accounts"] */
+    //  #swagger.security = [{ "Bearer": [] }]
     // users can delete their own account and admins can delete any account
     /*if (req.params.id !== req.user.id && req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
-    }*/
-
+    }
+    */
     accountService.delete(req.params.id)
         .then(() => res.status(200).json({ message: 'Account deleted successfully' }))
         .catch(next);

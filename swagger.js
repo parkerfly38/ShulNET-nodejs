@@ -135,6 +135,63 @@ const doc = {
             hebrew_name: "Aviva Leah bat Baruch v/Leah Pesha",
             bnai_mitzvah_date: "2011-01-01"
         },
+        Portal: {
+            institution_name: "Congregation Beth Israel",
+            address_line_1: "144 York Street",
+            address_line_2: "",
+            city: "Bangor",
+            state: "ME",
+            zip: "04401",
+            country: "USA",
+            phone: "207-945-3433",
+            fax: "",
+            webUrl: "www.cbisrael.org",
+            officeEmail: "office@cbisrael.org",
+            rabbis: [
+                {
+                    first_name: "Bob",
+                    last_name: "Smith",
+                    title: "Senior Rabbi",
+                    phone: "555-555-5555",
+                    email: "rabbi@email.org"
+                },
+                {
+                    first_name: "Rachel",
+                    last_name: "Smith",
+                    title: "Associate Rabbi",
+                    phone: "555-555-5555",
+                    email: "associaterabbi@email.org"
+                }
+            ],
+            officers: [
+                {
+                    first_name: "Robert",
+                    last_name: "Goldberg",
+                    title: "President",
+                    phone: "555-555-5555",
+                    email: "president@email.org"
+                }
+            ],
+            committee_chairs: [
+                {
+                    first_name: "Marla",
+                    last_name: "Goldberg",
+                    title: "Ritual Committee Chair",
+                    phone: "555-555-5555",
+                    email: "cochair@email.org"
+                }
+            ],
+            portal_settings: [
+                {
+                    option_name: "api_key1",
+                    option_value: "apivalue"
+                },
+                {
+                    option_name: "api_key2",
+                    option_value: "apivalue"
+                }
+            ]
+        },
         Invoice: {
             date: "2021-01-01",
             last_reminder: "2021-01-01",
