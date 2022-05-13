@@ -83,7 +83,7 @@ exports.findOne = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({ message: err.message || "Error retrieving family member with id " + id });
-        })
+        });
 };
 
 exports.update = (req, res) => {
@@ -106,7 +106,7 @@ exports.update = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({ message: err.message || "Error occurred updating family member."});
-        })
+        });
 };
 
 exports.delete = (req, res) => {

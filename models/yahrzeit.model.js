@@ -21,6 +21,7 @@ module.exports = mongoose => {
             "ADAR_I",
             "ADAR_II"
         ], required: false},
+        calculated_hebrew_date_of_death: { type: String, required: false },
         member_id: { type: [String] }
     }, {timestamps: true });
 

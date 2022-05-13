@@ -3,6 +3,7 @@ const e = require("express");
 const { yahrzeit } = require("../models");
 const db = require("../models");
 const Yahrzeit = db.yz;
+const hebrewDate = require("hebrew-date");
 
 exports.create = (req, res) => {
     /* #swagger.tags = ["Yahrzeit"]
@@ -17,6 +18,12 @@ exports.create = (req, res) => {
      }
      #swagger.security = [{ "Bearer": [] }]         */
     const yahrzeit = new Yahrzeit(req.body);
+    console.log(yahrzeit);
+    const gMonth = yahrzeit.date_of_death.getMonth()+1;
+    const gDay = yahrzeit.date_of_death.getDate();
+    const gYear = yahrzeit.date_of_death.getFullYear();
+    const hebrewDateObject = hebrewDate(gYear, gMonth, gDay);
+    yahrzeit.calculated_hebrew_date_of_death = hebrewDateObject.date + ' ' + hebrewDateObject.month_name + ' ' + hebrewDateObject.year;
     yahrzeit
         .save(yahrzeit)
         .then(data => {
@@ -80,13 +87,19 @@ exports.update = (req, res) => {
         return res.status(400).send({ message: "Data may not be empty."});
     }
     const id = req.params.id;
+    //always check to update the Hebrew Date
+    const gMonth = req.params.date_of_death.getMonth()+1;
+    const gDay = req.params.date_of_death.getDate();
+    const gYear = req.params.date_of_death.getFullYear();
+    const hebrewDateObject = hebrewDate(gYear, gMonth, gDay);
+    req.params.calculated_hebrew_date_of_death = hebrewDateObject.date + ' ' + hebrewDateObject.month_name + ' ' + hebrewDateObject.year;
     Yahrzeit.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
         .then(data => {
             if(!data)
             {
                 req.status(404).send({
                     message: `Cannot update Yahrzeit with id = ${id}.  Member not found.`
-                })
+                });
             } else {
                 res.status(200).send({message: "Yahrzeit was updated successfully."});
             }
@@ -100,11 +113,11 @@ exports.delete = (req, res) => {
     // #swagger.tags = ["Yahrzeit"]
     // #swagger.security = [{ "Bearer": [] }]         
     const id = req.params.id;
-    Member.findByIdAndRemove(id, { useFindAndModify: false })
+    Yahrzeit.findByIdAndRemove(id, { useFindAndModify: false })
         .then(data => {
             if (!data)
             {
-                res.status(404).send({ message: `Cannot delete Yahrzeit with id = ${id}. Member not found.`});
+                res.status(404).send({ message: `Cannot delete Yahrzeit with id = ${id}. Yahrzeit not found.`});
             } else {
                 res.status(200).send({ message: `${data.deletedCount} Yahrzeits were deleted successfully.`});
             }
