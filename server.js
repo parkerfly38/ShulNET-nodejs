@@ -28,7 +28,7 @@ db.mongoose.connect(db.url, {useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-const whitelist = ['http://localhost:8081','http://localhost:6868','*'];
+const whitelist = ['http://localhost:8080','http://localhost:8081','http://localhost:6868','*'];
 const corsOptions = {
     credentials: true, // This is important.
     origin: (origin, callback) => {
