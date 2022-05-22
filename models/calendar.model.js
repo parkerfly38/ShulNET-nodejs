@@ -1,12 +1,14 @@
 const { Schema } = require('mongoose');
+var Portal  = require("./portal.model");
 
 module.exports = mongoose =>
 {
     var calendar = new Schema({
         name: { type: String, required: true },
         members_only: { type: Boolean, default: false },
-        public: {type:Boolean, default: true },
-        created: { type: Date, default: Date.now }
+        public: { type: Boolean, default: true },
+        created: { type: Date, default: Date.now },
+        portal_id: { type: Schema.Types.ObjectId, ref: Portal }
     });
 
     calendar.method("toJSON", function() {

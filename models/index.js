@@ -15,6 +15,7 @@ db.event = require("./event.model")(mongoose);
 db.account = require("./account.model")(mongoose);
 db.refreshToken = require("./refresh-token.model")(mongoose);
 db.portal = require("./portal.model")(mongoose);
+db.outboundemail = require("./outboundemail.model")(mongoose);
 db.isValidId = (id) => {
     return mongoose.Types.ObjectId.isValid(id);
 }

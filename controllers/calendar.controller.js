@@ -32,7 +32,18 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
     // #swagger.tags = ["Calendar"]
-    Calendar.find()
+    /* #swagger.parameters['portal_id'] = {
+        in: 'header',
+        description: 'Portal ID',
+        required: true
+    } */
+    console.log(req.headers);
+    if (req.headers.portal_id == "")
+    {
+        res.status(500).send({ message: "Portal ID required."});
+    }
+    const portal_id = req.headers.portal_id;
+    Calendar.find({portal_id: portal_id})
         .then(data => {
             /* #swagger.responses[200] = {
               schema: [{ "$ref": "#/definitions/Calendar" }]    

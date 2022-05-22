@@ -33,7 +33,17 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
     // #swagger.tags = ["Members"]
-    Member.find()
+    /* #swagger.parameters["portal_id"] = {
+            in: 'header',
+            description: 'portal_id',
+            required: true
+    } */
+    if (req.headers.portal_id == "")
+    {
+        res.status(500).send({ message: "Portal ID is required."});
+    }
+    const portal_id = req.headers.portal_id;
+    Member.find({portal_id: portal_id})
         .then(data => {
             /* #swagger.responses[200] = {
                     schema: [{  "$ref": "#/definitions/Member" }]

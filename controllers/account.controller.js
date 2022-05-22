@@ -103,14 +103,18 @@ async function register(params, origin) {
     // hash password
     account.passwordHash = hash(params.password);
 
-    //create a new member, too
-    const member = new db.members();
-    member.first_name = params.firstName;
-    member.last_name = params.lastName;
-    member.email = params.email;
+    //if role is not admin
+    if (account.role != Role.Admin)
+    {
+        //create a new member, too
+        const member = new db.members();
+        member.first_name = params.firstName;
+        member.last_name = params.lastName;
+        member.email = params.email;
 
-    await member.save();
-    account.member_id = member.id;
+        await member.save();
+        account.member_id = member.id;
+    }
 
     // save account
     await account.save();

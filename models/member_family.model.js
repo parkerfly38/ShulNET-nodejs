@@ -15,7 +15,8 @@ module.exports = mongoose => {
         email: {type: String, required: false },
         dob: {type:Date, required: false },
         hebrew_name: { type: String, required: false },
-        bnai_mitzvah_date: {type: Date, required: false }
+        bnai_mitzvah_date: {type: Date, required: false },
+        email_optout_date: { type: Date, required: false }
     }, {timestamps: true});
 
     schema.method("toJSON", function() {

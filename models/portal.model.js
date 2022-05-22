@@ -1,5 +1,6 @@
 const { ServerDescriptionChangedEvent } = require("mongodb");
 const { Schema } = require("mongoose");
+const { invoice } = require('./invoice.model');
 
 module.exports = mongoose => {
 
@@ -32,7 +33,8 @@ module.exports = mongoose => {
         officers: { type: [person]},
         board_members: { type: [person]},
         committee_chairs: { type: [person]},
-        portal_settings: { type: [setting]}
+        portal_settings: { type: [setting]},
+        portal_invoices : { type: [invoice]},
     });
 
     schema.method("toJSON", function() {
@@ -43,4 +45,4 @@ module.exports = mongoose => {
 
     const Portal = mongoose.model("portal", schema);
     return Portal;
-}
+};

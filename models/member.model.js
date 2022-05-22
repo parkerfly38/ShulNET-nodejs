@@ -1,4 +1,5 @@
 const { Schema } = require("mongoose");
+var Portal = require("./portal.model");
 
 module.exports = mongoose => {
     var schema = new Schema({
@@ -27,7 +28,10 @@ module.exports = mongoose => {
         bnai_mitzvah_date: {type: String, required: false },
         haftarah: { type: String, required: false },
         wedding_anniversary: { type: Date, required: false },
-        quickbooks_customer_id: { type: String, required: false }
+        quickbooks_customer_id: { type: String, required: false },
+        portal_id: { type: Schema.Types.ObjectId, required: true, ref: Portal },
+        email_optout_date: { type: Date, required: false },
+        sms_optout_date: { type: Date, required: false }
     }, {timestamps: true });
 
     schema.method("toJSON", function() {

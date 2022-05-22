@@ -53,13 +53,15 @@ const doc = {
             },
             passwordReset: "2022-01-01",
             created: "2021-01-01",
-            updated: "2021-01-01"
+            updated: "2021-01-01",
+            portal_id: ""
         },
         Calendar: {
             name: "Example Calendar",
             members_only: false,
             public: true,
-            created: "2021-01-01"
+            created: "2021-01-01",
+            portal_id: ""
         },
         Event: {
             name: "",
@@ -117,7 +119,10 @@ const doc = {
             bnai_mitzvah_date: "5 Tammuz",
             haftarah: "",
             wedding_anniversary: "2006-06-18",
-            quickbooks_customer_id: ""
+            quickbooks_customer_id: "",
+            portal_id: "",
+            email_optout_date: "2022-01-01",
+            sms_optout_date: "2022-01-01"
         },
         Family_Member: {
             member_id: "",
@@ -133,7 +138,16 @@ const doc = {
             email: "email@email.com",
             dob: "2001-01-01",
             hebrew_name: "Aviva Leah bat Baruch v/Leah Pesha",
-            bnai_mitzvah_date: "2011-01-01"
+            bnai_mitzvah_date: "2011-01-01",
+            email_optout_date: "2022-01-01"
+        },
+        OutboundEmail: {
+            email_subject: "To Whom it May Concern",
+            email_from: "somebody@somewhere.com",
+            email_html_body: "<html><head><title>Blah</title></head><body><p>This is an email.</p></body></html>",
+            email_text_body: "For those situations where you need a plain text email, too.",
+            portal_id: "",
+            send_date: "<Populated later when it is sent>"
         },
         Portal: {
             institution_name: "Congregation Beth Israel",
@@ -189,6 +203,71 @@ const doc = {
                 {
                     option_name: "api_key2",
                     option_value: "apivalue"
+                }
+            ],
+            portal_invoices: [
+                {
+                    date: "2021-01-01",
+                    last_reminder: "2021-01-01",
+                    date_due: "2021-02-01",
+                    total_reminders: 0,
+                    member_id: "",
+                    status: 0,
+                    tax_rate: 0,
+                    shipping_rule: "",
+                    shipping_name: "",
+                    ip: "",
+                    hourly: 0,
+                    rollingInvoice: false,
+                    check_only: false,
+                    quote: false,
+                    header: {
+                        company_name: "ABC Company",
+                        contact_name: "Brian Kresge",
+                        address_line_1: "104 Baker Road",
+                        address_line_2: "",
+                        city: "Winterport",
+                        state: "ME",
+                        zip: "04496",
+                        country: "US",
+                        phone: "555-555-5555",
+                        fax: "555-555-5556",
+                        email: "brian.kresge@gmai.com",
+                        webiste: "www.shulnet.com",
+                        memo: ""
+                    },
+                    payments: [
+                        {
+                            date: "2021-01-01",
+                            paid: 15.00
+                        }
+                    ],
+                    components: {
+                        type: "product", //product, time, credit
+                        minutes: 0,
+                        hourly: 0,
+                        qty: 1,
+                        unit_price: 15.00,
+                        status: 0,
+                        date: "2021-01-01",
+                        option1: "",
+                        option2: "",
+                        option3: "",
+                        option4: "",
+                        option5: "",
+                        name: "Name of line",
+                        description: "Valuable service",
+                        tax: 0
+                    },
+                    totals: {
+                        paid: 0.00,
+                        due: 1500.00,
+                        subtotal: 1500.00,
+                        shipping: 0.00,
+                        tax: 0.00,
+                        tax_rate: 0.20,
+                        credits: 0.00
+                    }
                 }
             ]
         },

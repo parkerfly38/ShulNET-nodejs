@@ -1,5 +1,6 @@
 const { Schema } = require('mongoose');
 var Member = require("./member.model");
+var Portal = require("./portal.model");
 
 module.exports = mongoose =>
 {
@@ -20,7 +21,8 @@ module.exports = mongoose =>
         },
         passwordReset: Date,
         created: { type: Date, default: Date.now },
-        updated: Date
+        updated: Date,
+        portal_id: {type: Schema.Types.ObjectId, ref: Portal }
     });
 
     schema.virtual('isVerified').get(function() {

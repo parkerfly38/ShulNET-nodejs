@@ -10,6 +10,7 @@ var yzRouter = require("./yahrzeit");
 var eventRouter = require("./event");
 var accountRouter = require("./account");
 var portalRouter = require("./portal");
+var emailerRouter = require("./emailer");
 
 router.use("/members", memberRouter);
 router.use("/invoices", invoiceRouter);
@@ -18,5 +19,6 @@ router.use("/yahrzeit", yzRouter);
 router.use("/event", eventRouter);
 router.use("/account", accountRouter);
 router.use("/portal", portalRouter);
+router.use("/emailer", emailerRouter);
 
 module.exports = router;

@@ -69,6 +69,29 @@ exports.findByMemberId = (req, res) =>
         });
 };
 
+exports.findByPortalId = (req, res) =>
+{
+    /* #swagger.tags = ["Invoices"]
+       #swagger.responses[200] = {
+           schema: [{ $ref: "#/definitions/Invoice"}]
+       }
+       #swagger.security = [{ "Bearer": [] }]
+    */
+   const portal_id = req.params.portal_id;
+   Invoice.find({portal_id: portal_id})
+       .then(data => {
+           if (!data)
+           {
+               res.status(404).send({ message: `Invoices for portal ${portal_id} not found.`});
+           } else {
+               res.status(200).send(data);
+           }
+       })
+       .catch(err => {
+           res.status(500).send({message: err.message || "Ann error occurred retrieving invoices."});
+       });
+};
+
 exports.fineOne = (req, res) => {
     // #swagger.tags = ["Invoices"]
     /* #swagger.responses[200] = {
