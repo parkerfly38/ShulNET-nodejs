@@ -29,7 +29,7 @@ module.exports = mongoose => {
         haftarah: { type: String, required: false },
         wedding_anniversary: { type: Date, required: false },
         quickbooks_customer_id: { type: String, required: false },
-        portal_id: { type: Schema.Types.ObjectId, required: true, ref: Portal },
+        portal_id: { type: String, required: true },
         email_optout_date: { type: Date, required: false },
         sms_optout_date: { type: Date, required: false }
     }, {timestamps: true });

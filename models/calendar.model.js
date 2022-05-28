@@ -8,7 +8,7 @@ module.exports = mongoose =>
         members_only: { type: Boolean, default: false },
         public: { type: Boolean, default: true },
         created: { type: Date, default: Date.now },
-        portal_id: { type: Schema.Types.ObjectId, ref: Portal }
+        portal_id: { type: String, required: true }
     });
 
     calendar.method("toJSON", function() {

@@ -56,7 +56,7 @@ module.exports = mongoose =>
         last_reminder: { type: Date, required: false },
         date_due: { type: Date, required: true },
         total_reminders: { type: Number, default: 0 },
-        member_id: { type: String, required: true },
+        member_id: { type: String, required: false },
         status: { type: Number, enum: [0,1,2,3,4], required: true }, //0 = unpaid, 1 paid, 2 partially paid, 3 overdue, 4 dead
         tax_rate: { type: Number, default: 0 },
         shipping_rule: {type: String, required: false },
