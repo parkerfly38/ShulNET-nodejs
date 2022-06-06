@@ -5,9 +5,10 @@ const Role = require('../handlers/role');
 
 var router = express.Router();
 
-//members
+//portal
 router.get("/", PortalController.findAll);
 router.get("/:id", PortalController.findAll);
+router.get("/domain/:domain", PortalController.findByDomain);
 router.get("/settings", authorize(Role.Admin), PortalController.findAllWithSettings);
 router.get("/settings/:id", authorize(Role.Admin), PortalController.findOneWithSettings);
 router.post("/", authorize(Role.Admin), PortalController.create);

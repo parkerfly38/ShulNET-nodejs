@@ -5,7 +5,7 @@
     "title": "ShulNET NodeJS API",
     "description": "API underpinning ShulNET or custom integrations."
   },
-  "host": "localhost:6868",
+  "host": "localhost:8080",
   "basePath": "/",
   "tags": [],
   "schemes": [
@@ -1791,6 +1791,43 @@
         ]
       }
     },
+    "/portal/domain/{domain}": {
+      "get": {
+        "tags": [
+          "Portal"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "domain",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Portal domain"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Portal"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/portal/settings": {
       "get": {
         "tags": [
@@ -2521,6 +2558,10 @@
         "officeEmail": {
           "type": "string",
           "example": "office@cbisrael.org"
+        },
+        "portal_domain": {
+          "type": "string",
+          "example": "cbisrael.shulnet.com"
         },
         "rabbis": {
           "type": "array",

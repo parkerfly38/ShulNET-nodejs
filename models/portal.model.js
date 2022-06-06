@@ -29,13 +29,15 @@ module.exports = mongoose => {
         fax: { type: String, required: false },
         webUrl: { type: String, required: false },
         officeEmail: { type: String, required: false },
+        portal_domain: { type: String, required: false },
+        active: { type: Boolean, required: false, default: false },
         rabbis: { type: [person]},
         officers: { type: [person]},
         board_members: { type: [person]},
         committee_chairs: { type: [person]},
         portal_settings: { type: [setting]},
         portal_invoices : { type: [invoice]},
-    });
+    }, {timestamps: true});
 
     schema.method("toJSON", function() {
         const { __v, _id, ...object } = this.toObject();

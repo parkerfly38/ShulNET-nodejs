@@ -46,6 +46,11 @@ exports.findAll = (req, res) => {
 
 exports.findOne = (req, res) => {
     /*  #swagger.tags = ["Portal"]
+        #swagger.parameters['id'] = {
+            in: 'path',
+            description: 'Portal identifier',
+            required: true
+        }
         #swagger.responses[200] = {
             schema: { $ref: "#/definitions/Portal" }
         }
@@ -58,6 +63,31 @@ exports.findOne = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({message:err.message});
+        });
+};
+
+exports.findByDomain = (req, res) => {
+    /*  #swagger.tags = ["Portal"]
+        #swagger.parameters['domain'] = {
+            in: 'path',
+            description: 'Portal domain',
+            required: true
+        }
+        #swagger.responses[200] = {
+            schema: [{ $ref: "#/definitions/Portal"}]
+        }
+    */
+   const domain = req.params.domain;
+   Portal.findOne({portal_domain : domain })
+        .then(data => {
+            if (!data) {
+                res.status(404).send({message: "Domain not found."});
+            } else {
+                res.status(200).send(data);
+            }
+        })
+        .catch(err => {
+            res.status(500).send({message: err.message });
         });
 };
 

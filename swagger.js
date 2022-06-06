@@ -6,7 +6,7 @@ const doc = {
         title: "ShulNET NodeJS API",
         description: "API underpinning ShulNET or custom integrations."
     },
-    host: "localhost:6868",
+    host: "localhost:8080",
     basePath: "/",
     schemes: ['http', 'https'],
     consumes: ['application/json'],
@@ -161,6 +161,7 @@ const doc = {
             fax: "",
             webUrl: "www.cbisrael.org",
             officeEmail: "office@cbisrael.org",
+            portal_domain: "cbisrael.shulnet.com",
             rabbis: [
                 {
                     first_name: "Bob",
