@@ -13,6 +13,7 @@ module.exports = {
     revokeToken,
     register,
     verifyEmail,
+    checkEmail,
     forgotPassword,
     validateResetToken,
     resetPassword,
@@ -100,11 +101,18 @@ async function register(params, origin) {
     account.verified = isFirstAccount ? Date.now() : Date.now();
     account.verificationToken = randomTokenString();
 
+    console.log(params);
+    //if there's a role param, let's use that
+    if (params.role == "admin" || params.role == "Admin")
+    {
+        account.role = Role.Admin;
+    }
+    console.log(account);
     // hash password
     account.passwordHash = hash(params.password);
 
     //if role is not admin
-    if (account.role != Role.Admin)
+    if (account.role != Role.Admin && account.role != "Admin")
     {
         //create a new member, too
         const member = new db.members();
@@ -131,6 +139,15 @@ async function verifyEmail({ token }) {
     account.verified = Date.now();
     account.verificationToken = undefined;
     await account.save();
+}
+
+async function checkEmail(email)
+{
+    const account = await db.account.findOne({ email });
+    console.log(account);
+    if (!account) return true;
+
+    throw 'Email in use.';
 }
 
 async function forgotPassword({ email }, origin) {

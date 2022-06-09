@@ -1,6 +1,9 @@
 const e = require("express");
+const role = require("../handlers/role");
 const { portal } = require("../models");
 const db = require("../models");
+const accountService = require("./account.controller");
+const Role = require("../handlers/role");
 const Portal = db.portal;
 
 exports.create = (req, res) => {
@@ -21,6 +24,66 @@ exports.create = (req, res) => {
         .save(portal)
         .then(data => {
             res.status(201).send(data);
+        })
+        .catch(err => {
+            res.status(500).send({message:err.message || "An error occurred saving portal details."});
+        });
+};
+
+exports.signup = (req, res) => {
+    /*  #swagger.tags = ["Portal"]        
+        #swagger.security = [{ "Bearer": [] }]
+        #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Portal definitions.',
+            required: true,
+            schema: { $ref: "#/definitions/PortalSignup" }
+        }
+        #swagger.responses[201] = {
+            schema: { $ref: "#/definitions/PortalSignup" }
+        }
+    */
+   const portalFields = {
+    institution_name: req.body.institution_name,
+    address_line_1: req.body.address_line_1,
+    address_line_2: req.body.address_line_2,
+    city: req.body.city,
+    state: req.body.state,
+    zip: req.body.zip,
+    country: req.body.country,
+    phone: req.body.phone,
+    fax: req.body.fax,
+    webUrl: req.body.webUrl,
+    officeEmail: req.body.officeEmail,
+    portal_domain: req.body.portal_domain,
+    accept_terms: req.body.acceptTerms
+   };
+   const accountFields = {
+    email: req.body.email,
+    password: req.body.password,
+    confirmPassword: req.body.confirmPassword,
+    title: req.body.title,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    acceptTerms: req.body.acceptTerms,
+    role: Role.Admin,
+    portal_id: ""
+   };
+   const portal = new Portal(portalFields);
+   portal
+        .save(portal)
+        .then(data => {
+            console.log(data);
+            accountFields.portal_id = data.id;
+            accountService.register(accountFields)
+                .then(account => {
+                    console.log(account);
+                    res.status(201).send(account);
+                })
+                .catch(error => {
+                    res.status(500).send({message: error.message || "An error occurred saving portal admin."});
+                });
+            //res.status(201).send(data);
         })
         .catch(err => {
             res.status(500).send({message:err.message || "An error occurred saving portal details."});

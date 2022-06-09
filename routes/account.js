@@ -21,6 +21,7 @@ router.get('/:id', authorize(), getById);
 router.post('/', authorize(Role.Admin), createSchema, create);
 router.put('/:id', authorize(), updateSchema, update);
 router.delete('/:id', authorize(), _delete);
+router.get('/email/:email', checkEmail);
 //router.delete('/:id', _delete);
 
 module.exports = router;
@@ -113,7 +114,9 @@ function registerSchema(req, res, next) {
         email: Joi.string().email().required(),
         password: Joi.string().min(6).required(),
         confirmPassword: Joi.string().valid(Joi.ref('password')).required(),
-        acceptTerms: Joi.boolean().valid(true).required()
+        acceptTerms: Joi.boolean().valid(true).required(),
+        role: Joi.string(),
+        portal_id: Joi.string()
     });
     validateRequest(req, next, schema);
 }
@@ -142,6 +145,17 @@ function verifyEmail(req, res, next) {
     /*  #swagger.tags = ["Accounts"] */
     accountService.verifyEmail(req.body)
         .then(() => res.status(200).json({ message: 'Verification successful, you can now login' }))
+        .catch(next);
+}
+
+function checkEmail(req, res, next) {
+    /*  #swagger.tags = ["Accounts"] */
+    console.log(req.params.email);
+    accountService.checkEmail(req.params.email)
+        .then((data) => 
+            {
+                res.status(200).send(data);
+            })
         .catch(next);
 }
 

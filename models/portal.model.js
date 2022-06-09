@@ -30,6 +30,7 @@ module.exports = mongoose => {
         webUrl: { type: String, required: false },
         officeEmail: { type: String, required: false },
         portal_domain: { type: String, required: false },
+        accept_terms: { type: Boolean, required: true, default: true },
         active: { type: Boolean, required: false, default: false },
         rabbis: { type: [person]},
         officers: { type: [person]},

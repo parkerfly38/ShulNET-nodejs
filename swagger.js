@@ -149,6 +149,27 @@ const doc = {
             portal_id: "",
             send_date: "<Populated later when it is sent>"
         },
+        PortalSignup: {
+            institution_name: "Congregation Beth Israel",
+            address_line_1: "144 York Street",
+            address_line_2: "",
+            city: "Bangor",
+            state: "ME",
+            zip: "04401",
+            country: "USA",
+            phone: "207-945-3433",
+            fax: "",
+            webUrl: "www.cbisrael.org",
+            officeEmail: "office@cbisrael.org",
+            portal_domain: "cbisrael.shulnet.com",
+            email: "brian.kresge@gmail.com",
+            password: "",
+            confirmPassword: "",
+            title: "None",
+            firstName: "Brian",
+            lastName: "Kresge",
+            acceptTerms: true,
+        },
         Portal: {
             institution_name: "Congregation Beth Israel",
             address_line_1: "144 York Street",
@@ -162,6 +183,7 @@ const doc = {
             webUrl: "www.cbisrael.org",
             officeEmail: "office@cbisrael.org",
             portal_domain: "cbisrael.shulnet.com",
+            accept_terms: true,
             rabbis: [
                 {
                     first_name: "Bob",

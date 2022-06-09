@@ -11,8 +11,9 @@ router.get("/:id", PortalController.findAll);
 router.get("/domain/:domain", PortalController.findByDomain);
 router.get("/settings", authorize(Role.Admin), PortalController.findAllWithSettings);
 router.get("/settings/:id", authorize(Role.Admin), PortalController.findOneWithSettings);
-router.post("/", authorize(Role.Admin), PortalController.create);
+router.post("/", PortalController.create);
 router.put("/:id", authorize(Role.Admin), PortalController.update);
 router.delete("/:id", authorize(Role.Admin), PortalController.delete);
+router.post("/portal-signup", PortalController.signup);
 
 module.exports = router;
