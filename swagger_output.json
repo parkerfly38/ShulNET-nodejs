@@ -1621,6 +1621,27 @@
         ]
       }
     },
+    "/account/email/{email}": {
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/portal/": {
       "get": {
         "tags": [
@@ -1668,9 +1689,6 @@
             "schema": {
               "$ref": "#/definitions/Portal"
             }
-          },
-          "401": {
-            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -1880,6 +1898,36 @@
           },
           "401": {
             "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/portal/portal-signup": {
+      "post": {
+        "tags": [
+          "Portal"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Portal definitions.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PortalSignup"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/PortalSignup"
+            }
           },
           "500": {
             "description": "Internal Server Error"
@@ -2512,6 +2560,87 @@
         }
       }
     },
+    "PortalSignup": {
+      "type": "object",
+      "properties": {
+        "institution_name": {
+          "type": "string",
+          "example": "Congregation Beth Israel"
+        },
+        "address_line_1": {
+          "type": "string",
+          "example": "144 York Street"
+        },
+        "address_line_2": {
+          "type": "string",
+          "example": ""
+        },
+        "city": {
+          "type": "string",
+          "example": "Bangor"
+        },
+        "state": {
+          "type": "string",
+          "example": "ME"
+        },
+        "zip": {
+          "type": "string",
+          "example": "04401"
+        },
+        "country": {
+          "type": "string",
+          "example": "USA"
+        },
+        "phone": {
+          "type": "string",
+          "example": "207-945-3433"
+        },
+        "fax": {
+          "type": "string",
+          "example": ""
+        },
+        "webUrl": {
+          "type": "string",
+          "example": "www.cbisrael.org"
+        },
+        "officeEmail": {
+          "type": "string",
+          "example": "office@cbisrael.org"
+        },
+        "portal_domain": {
+          "type": "string",
+          "example": "cbisrael.shulnet.com"
+        },
+        "email": {
+          "type": "string",
+          "example": "brian.kresge@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": ""
+        },
+        "confirmPassword": {
+          "type": "string",
+          "example": ""
+        },
+        "title": {
+          "type": "string",
+          "example": "None"
+        },
+        "firstName": {
+          "type": "string",
+          "example": "Brian"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Kresge"
+        },
+        "acceptTerms": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
     "Portal": {
       "type": "object",
       "properties": {
@@ -2562,6 +2691,10 @@
         "portal_domain": {
           "type": "string",
           "example": "cbisrael.shulnet.com"
+        },
+        "accept_terms": {
+          "type": "boolean",
+          "example": true
         },
         "rabbis": {
           "type": "array",

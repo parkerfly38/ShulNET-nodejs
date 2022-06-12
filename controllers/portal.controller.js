@@ -31,8 +31,7 @@ exports.create = (req, res) => {
 };
 
 exports.signup = (req, res) => {
-    /*  #swagger.tags = ["Portal"]        
-        #swagger.security = [{ "Bearer": [] }]
+    /*  #swagger.tags = ["Portal"]       
         #swagger.parameters['obj'] = {
             in: 'body',
             description: 'Portal definitions.',
