@@ -8,8 +8,9 @@ module.exports = mongoose => {
         email_html_body: { type: String, required: true },
         email_text_body: { type: String, required: false },
         portal_id: { type: Schema.Types.ObjectId, ref: Portal },
-        send_date: { type: Date, required: false }
-    
+        send_date: { type: Date, required: false },
+        is_mass: { type: Boolean, required: false, default: true },
+        email_to: { type: String, required: false }
     }, {timestamps: true });
 
     schema.method("toJSON", function() {

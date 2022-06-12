@@ -128,7 +128,7 @@ async function register(params, origin) {
     await account.save();
 
     // send email
-    //await sendVerificationEmail(account, origin);
+    await sendVerificationEmail(account, origin);
 }
 
 async function verifyEmail({ token }) {
@@ -305,10 +305,12 @@ async function sendVerificationEmail(account, origin) {
 
     await sendEmail({
         to: account.email,
-        subject: 'Sign-up Verification API - Verify Email',
+        subject: 'ShulNET Sign-up Verification - Verify Email',
         html: `<h4>Verify Email</h4>
                <p>Thanks for registering!</p>
-               ${message}`
+               ${message}`,
+        from: 'portal@mg.shulnet.com',
+        portal_id: 'localhost' //it's always the main server for these emails
     });
 }
 
