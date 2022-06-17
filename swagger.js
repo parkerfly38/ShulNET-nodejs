@@ -294,6 +294,12 @@ const doc = {
                 }
             ]
         },
+        Template: {
+            template_name: "Invoice Template",
+            template_type: "invoice",
+            template_body: "<!DOCTYPE html><html><head></head><body><p>This is an invoice template</p></body></html>",
+            portal_id: ""
+        },
         Invoice: {
             date: "2021-01-01",
             last_reminder: "2021-01-01",

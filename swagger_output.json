@@ -2072,6 +2072,155 @@
           }
         ]
       }
+    },
+    "/template/": {
+      "get": {
+        "tags": [
+          "Template"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "portal_id",
+            "in": "header",
+            "description": "portal_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Template"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Template"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Template definitions.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Template"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/Template"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/template/{id}": {
+      "get": {
+        "tags": [
+          "Template"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Template"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Template"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
     }
   },
   "definitions": {
@@ -3030,6 +3179,27 @@
               }
             }
           }
+        }
+      }
+    },
+    "Template": {
+      "type": "object",
+      "properties": {
+        "template_name": {
+          "type": "string",
+          "example": "Invoice Template"
+        },
+        "template_type": {
+          "type": "string",
+          "example": "invoice"
+        },
+        "template_body": {
+          "type": "string",
+          "example": "<!DOCTYPE html><html><head></head><body><p>This is an invoice template</p></body></html>"
+        },
+        "portal_id": {
+          "type": "string",
+          "example": ""
         }
       }
     },

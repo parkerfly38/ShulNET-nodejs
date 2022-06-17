@@ -11,6 +11,7 @@ var eventRouter = require("./event");
 var accountRouter = require("./account");
 var portalRouter = require("./portal");
 var emailerRouter = require("./emailer");
+var templateRouter = require("./template");
 
 router.use("/members", memberRouter);
 router.use("/invoices", invoiceRouter);
@@ -20,5 +21,6 @@ router.use("/event", eventRouter);
 router.use("/account", accountRouter);
 router.use("/portal", portalRouter);
 router.use("/emailer", emailerRouter);
+router.use("/template", templateRouter);
 
 module.exports = router;
