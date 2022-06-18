@@ -279,7 +279,8 @@
             "name": "member_id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Member Id"
           }
         ],
         "responses": {
@@ -323,7 +324,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Family Member Id"
           }
         ],
         "responses": {
@@ -2188,6 +2190,39 @@
           }
         ]
       },
+      "put": {
+        "tags": [
+          "Template"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
       "delete": {
         "tags": [
           "Template"
@@ -2199,6 +2234,195 @@
             "in": "path",
             "required": true,
             "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/honors/": {
+      "post": {
+        "tags": [
+          "Honors"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Torah honors assignment definition",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Honors"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/Honors"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "portal_id",
+            "in": "header",
+            "description": "Portal Id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Honors"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/honors/{id}": {
+      "get": {
+        "tags": [
+          "Honors"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Honors"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Honors"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Honor Id"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Honor body",
+            "schema": {
+              "$ref": "#/definitions/Honors"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Honors"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Honor Id"
           }
         ],
         "responses": {
@@ -2495,6 +2719,43 @@
         "status": {
           "type": "number",
           "example": 0
+        }
+      }
+    },
+    "Honors": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": ""
+        },
+        "date_title": {
+          "type": "string",
+          "example": "Parashat Bo"
+        },
+        "honor_date": {
+          "type": "string",
+          "example": "2022-06-18T01:37:13.234Z"
+        },
+        "hebrew_date": {
+          "type": "string",
+          "example": "22 Tevet 5782"
+        },
+        "honor_name": {
+          "type": "string",
+          "example": "1st Aliyah"
+        },
+        "portal_id": {
+          "type": "string",
+          "example": ""
+        },
+        "honoree": {
+          "type": "string",
+          "example": "Brian Kresge"
+        },
+        "honoree_email": {
+          "type": "string",
+          "example": "brian.kresge@gmail.com"
         }
       }
     },

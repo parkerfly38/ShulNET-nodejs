@@ -72,11 +72,9 @@ exports.signup = (req, res) => {
    portal
         .save(portal)
         .then(data => {
-            console.log(data);
             accountFields.portal_id = data.id;
             accountService.register(accountFields)
                 .then(account => {
-                    console.log(account);
                     res.status(201).send(account);
                 })
                 .catch(error => {

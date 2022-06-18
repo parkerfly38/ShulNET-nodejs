@@ -56,7 +56,6 @@ async function authenticate({ email, password, ipAddress }) {
 async function refreshToken({ token, ipAddress }) {
     const refreshToken = await getRefreshToken(token);
     const { account } = refreshToken;
-    console.log(account);
     // replace old refresh token with a new one and save
     const newRefreshToken = generateRefreshToken(account, ipAddress);
     refreshToken.revoked = Date.now();
@@ -101,13 +100,11 @@ async function register(params, origin) {
     account.verified = isFirstAccount ? Date.now() : Date.now();
     account.verificationToken = randomTokenString();
 
-    console.log(params);
     //if there's a role param, let's use that
     if (params.role == "admin" || params.role == "Admin")
     {
         account.role = Role.Admin;
     }
-    console.log(account);
     // hash password
     account.passwordHash = hash(params.password);
 
@@ -144,7 +141,6 @@ async function verifyEmail({ token }) {
 async function checkEmail(email)
 {
     const account = await db.account.findOne({ email });
-    console.log(account);
     if (!account) return true;
 
     throw 'Email in use.';
@@ -267,7 +263,6 @@ function hash(password) {
 function generateJwtToken(account) {
     // create a jwt token containing the account id that expires in 15 minutes
     var token =  jwt.sign({ sub: account.id, id: account.id }, config.secret, { expiresIn: '15m' });
-    console.log(token);
     return token;
 }
 
@@ -279,7 +274,6 @@ function generateRefreshToken(account, ipAddress) {
         expires: new Date(Date.now() + 7*24*60*60*1000),
         createdByIp: ipAddress
     });
-    console.log(refreshToken);
     return refreshToken;
 }
 

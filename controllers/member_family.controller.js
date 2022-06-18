@@ -32,6 +32,10 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     // #swagger.tags = ["Family Members"]
     /*
+        #swagger.parameters['member_id'] = {
+            in: 'path',
+            description: "Member Id"
+        }
         #swagger.responses[200] = {
             schema: [{ "$ref": "#/definitions/Family_Member" }]
         }
@@ -65,6 +69,10 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     // #swagger.tags = ["Family Members"]
     /*
+        #swagger.parameters['id'] = {
+            in: 'path',
+            description: 'Family Member Id'
+        }
         #swagger.responses[200] = {
             schema: { "$ref": "#/definitions/Family_Member" }
         }

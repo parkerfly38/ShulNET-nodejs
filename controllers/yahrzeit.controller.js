@@ -18,7 +18,6 @@ exports.create = (req, res) => {
      }
      #swagger.security = [{ "Bearer": [] }]         */
     const yahrzeit = new Yahrzeit(req.body);
-    console.log(yahrzeit);
     const gMonth = yahrzeit.date_of_death.getMonth()+1;
     const gDay = yahrzeit.date_of_death.getDate();
     const gYear = yahrzeit.date_of_death.getFullYear();

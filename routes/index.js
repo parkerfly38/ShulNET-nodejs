@@ -12,6 +12,7 @@ var accountRouter = require("./account");
 var portalRouter = require("./portal");
 var emailerRouter = require("./emailer");
 var templateRouter = require("./template");
+var honorsRouter = require("./honors");
 
 router.use("/members", memberRouter);
 router.use("/invoices", invoiceRouter);
@@ -22,5 +23,6 @@ router.use("/account", accountRouter);
 router.use("/portal", portalRouter);
 router.use("/emailer", emailerRouter);
 router.use("/template", templateRouter);
+router.use("/honors", honorsRouter);
 
 module.exports = router;

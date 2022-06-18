@@ -94,6 +94,16 @@ const doc = {
             public: true,
             status: 0
         },
+        Honors: {
+            id: "",
+            date_title: "Parashat Bo",
+            honor_date: "2022-06-18T01:37:13.234Z",
+            hebrew_date: "22 Tevet 5782",
+            honor_name: "1st Aliyah",
+            portal_id: "",
+            honoree: "Brian Kresge",
+            honoree_email: "brian.kresge@gmail.com"
+        },
         Member: {
             first_name: "Brian",
             last_name: "Kresge",

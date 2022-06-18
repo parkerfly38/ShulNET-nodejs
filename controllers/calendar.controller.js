@@ -37,7 +37,6 @@ exports.findAll = (req, res) => {
         description: 'Portal ID',
         required: true
     } */
-    console.log(req.headers);
     if (req.headers.portal_id == "")
     {
         res.status(500).send({ message: "Portal ID required."});

@@ -150,7 +150,6 @@ function verifyEmail(req, res, next) {
 
 function checkEmail(req, res, next) {
     /*  #swagger.tags = ["Accounts"] */
-    console.log(req.params.email);
     accountService.checkEmail(req.params.email)
         .then((data) => 
             {
