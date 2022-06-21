@@ -166,11 +166,37 @@ exports.findAllWithSettings = (req, res) => {
         });
 };
 
-exports.findOneWithSettings = (req, res) => {
+exports.findOneWithRabbis = (req, res) => {
     /*  #swagger.tags = ["Portal"]
         #swagger.responses[200] = {
             schema: { $ref: "#/definitions/Portal" }
         }
+        #swagger.parameters['id'] = {
+            in: 'path',
+            description: 'Portal ID'
+        }
+        #swagger.security = [{ "Bearer" : []}]
+    */
+   const id = req.params.id;
+   Portal.findById(id, 'rabbis')
+        .then(data => {
+            res.status(200).send(data);
+        })
+        .catch(error => {
+            res.status(500).send({ message: error.message });
+        });
+};
+
+exports.findOneWithSettings = (req, res) => {
+    /*  #swagger.tags = ["Portal"]
+        #swagger.parameters['id'] = {
+            in: 'path',
+            description: 'Portal ID'
+        }
+        #swagger.responses[200] = {
+            schema: { $ref: "#/definitions/Portal" }
+        }
+        #swagger.security = [{ "Bearer" : [] }]
     */
     const id = req.params.id;
     Portal.findById(id)

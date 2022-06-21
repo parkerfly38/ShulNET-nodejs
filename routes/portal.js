@@ -15,5 +15,6 @@ router.post("/", PortalController.create);
 router.put("/:id", authorize(Role.Admin), PortalController.update);
 router.delete("/:id", authorize(Role.Admin), PortalController.delete);
 router.post("/portal-signup", PortalController.signup);
+router.get("/:id/rabbis", authorize(), PortalController.findOneWithRabbis);
 
 module.exports = router;
