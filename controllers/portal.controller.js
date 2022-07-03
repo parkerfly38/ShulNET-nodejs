@@ -117,7 +117,7 @@ exports.findOne = (req, res) => {
     */
     const id = req.params.id;
     Portal.findById(id)
-        .select('-postal_settings')
+        .select('-portal_settings')
         .then(data => {
             res.status(200).send(data);
         })
