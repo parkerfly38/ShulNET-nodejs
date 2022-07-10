@@ -5,7 +5,7 @@ module.exports = mongoose => {
         english_name: { type: String, required: true },
         hebrew_name: { type: String, required: true },
         date_of_death: { type: Date, required: true },
-        hebrew_day_of_death: { type: String, required: true },
+        hebrew_day_of_death: { type: String, required: false },
         hebrew_month_of_death: { type: String, enum: [
             "NISAN",
             "IYYAR",
@@ -21,8 +21,10 @@ module.exports = mongoose => {
             "ADAR_I",
             "ADAR_II"
         ], required: false},
+        hebrew_year_of_death: { type: String, required: false },
         calculated_hebrew_date_of_death: { type: String, required: false },
-        member_id: { type: [String] }
+        member_id: { type: [String] },
+        portal_id: { type: Schema.Types.ObjectId, required: true }
     }, {timestamps: true });
 
     schema.method("toJSON", function() {

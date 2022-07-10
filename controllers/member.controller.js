@@ -4,6 +4,7 @@ const { invoice } = require("../models");
 const db = require("../models");
 const Member = db.members;
 const Invoice = db.invoice;
+const Yahrzeit = db.yz;
 
 exports.create = (req, res) => {
     /*  #swagger.tags = ["Members"]
@@ -37,13 +38,31 @@ exports.findAll = (req, res) => {
             in: 'header',
             description: 'portal_id',
             required: true
+       }
+       #swagger.parameters["page"] = {
+            in: 'query',
+            description: 'Page in results.',
+            required: false
+       }
+       #swagger.parameters["limit"] = {
+            in: 'query',
+            description: 'Per page results.',
+            required: false
+       }
     } */
+    const page = parseInt(req.query.page);
+    const limit = parseInt(req.query.limit);
+    const skipIndex = (page - 1) * limit;
+
     if (req.headers.portal_id == "")
     {
         res.status(500).send({ message: "Portal ID is required."});
     }
     const portal_id = req.headers.portal_id;
     Member.find({portal_id: portal_id})
+        .sort({_id: 1})
+        .limit(limit)
+        .skip(skipIndex)
         .then(data => {
             /* #swagger.responses[200] = {
                     schema: [{  "$ref": "#/definitions/Member" }]
@@ -129,6 +148,32 @@ exports.delete = (req, res) => {
             res.status(500).send({
                 message: err.message || "An error occurred while removing a member."
             });
+        });
+};
+
+exports.getMemberYahrzeits = (req, res) => {
+    /*  #swagger.tags = ["Members", "Yahrzeit"]
+        #swagger.security = [{ "Bearer": []}]
+        #swagger.parameters['member_id'] = {
+            in: 'path',
+            description: "Member Id"
+        }
+        #swagger.responses[200] = {
+            schema: [{ $ref: "#/definitions/Yahrzeit" }]
+        }
+        */
+       const id = req.params.member_id;
+       Yahrzeit.find({member_id: id})
+        .then(data => {
+            if (!data)
+            {
+                res.status(404).send({ message: `No yahrzeits found for member id ${id}`});
+            } else {
+                res.status(200).send(data);
+            }
+        })
+        .catch(error => {
+            res.status(500).send({ message: error.message || "An error occurred retrieving member yahrzeits."});
         });
 };
 

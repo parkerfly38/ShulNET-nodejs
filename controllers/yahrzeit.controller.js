@@ -35,11 +35,21 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
     /* #swagger.tags = ["Yahrzeit"]
+    #swagger.parameters['portal_id'] = {
+        in: 'header',
+        description: 'Portal Id',
+        required: true
+    }
      #swagger.responses[200] = {
       schema: [{ $ref: "#/definitions/Yahrzeit" }]
     }
     #swagger.security = [{ "Bearer": [] }]          */
-    Yahrzeit.find( req.body )
+    if (!req.header.portal_id)
+    {
+        return res.status(500).send({ message: "Portal ID required."});
+    }
+    const portal_id = req.header.portal_id;
+    Yahrzeit.find({portal_id: portal_id})
         .then(data => {
             res.status(200).send(data);
         })

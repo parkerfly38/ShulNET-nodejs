@@ -28,7 +28,7 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    /*  #swagger.tag = ["Honors"]
+    /*  #swagger.tags = ["Honors"]
         #swagger.parameters['portal_id'] = {
             in: 'header',
             description: "Portal Id"

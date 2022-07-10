@@ -27,4 +27,7 @@ router.delete("/family/:id", authorize(), MemberFamilyController.delete);
 //invoices
 router.get("/:member_id/invoices", authorize(), MemberController.getMemberInvoices);
 
+//yahrzeits
+router.get("/:member_id/yahrzeits", authorize(), MemberController.getMemberYahrzeits);
+
 module.exports = router;
